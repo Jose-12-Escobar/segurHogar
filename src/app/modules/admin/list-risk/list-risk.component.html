@@ -1,0 +1,98 @@
+<div class="container-fluid">
+
+  <div class="p-fluid grid">
+    <p-card class="col-12">
+      <div class="lg:col-12">
+        <p class="fs-3 text-uppercase">Listado de <span class="text-orange">riesgos</span> </p>
+      </div>
+      <p-table #dc [value]="risks"  [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }" [paginator]="true"
+        [rows]="10" [rowsPerPageOptions]="[5, 10, 25]" styleClass="p-datatable-striped  w-100">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="numPoliza" style="width: 10%;">Nº Poliza<p-sortIcon field="numPoliza"></p-sortIcon></th>
+            <th pSortableColumn="idRiesgo" style="width: 10%;">Id<p-sortIcon field="idRiesgo"></p-sortIcon></th>
+            <th pSortableColumn="tipoCalle" style="width: 10%;">Tipo calle<p-sortIcon field="tipoCalle"></p-sortIcon></th>
+            <th pSortableColumn="noCalle" style="width: 15%;">Nombre calle<p-sortIcon field="noCalle"></p-sortIcon></th>
+            <th pSortableColumn="numero" style="width: 10%;">Nº Calle<p-sortIcon field="numero"></p-sortIcon></th>
+            <th pSortableColumn="piso" style="width: 10%;">Piso<p-sortIcon field="piso"></p-sortIcon></th>
+            <th pSortableColumn="puerta" style="width: 10%;">Puerta<p-sortIcon field="puerta"></p-sortIcon></th>
+            <th pSortableColumn="coPostal" style="width: 10%;">CP<p-sortIcon field="coPostal"></p-sortIcon></th>
+            <th pSortableColumn="localidad" style="width: 15%;">Localidad<p-sortIcon field="localidad"></p-sortIcon></th>
+            <th pSortableColumn="provincia" style="width: 15%;">Provincia<p-sortIcon field="provincia"></p-sortIcon></th>
+            <th style="width: 5%;"></th>
+          </tr>
+          <tr>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'numPoliza', 'contains')"
+                [value]="$any(dc.filters['numPoliza'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'idRiesgo', 'contains')"
+                [value]="$any(dc.filters['idRiesgo'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'tipoCalle', 'contains')"
+                [value]="$any(dc.filters['tipoCalle'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'noCalle', 'contains')"
+                [value]="$any(dc.filters['noCalle'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'numero', 'contains')"
+                [value]="$any(dc.filters['numero'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'piso', 'contains')"
+                [value]="$any(dc.filters['piso'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'puerta', 'contains')"
+                [value]="$any(dc.filters['puerta'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'coPostal', 'contains')"
+                [value]="$any(dc.filters['coPostal'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'localidad', 'contains')"
+                [value]="$any(dc.filters['localidad'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'provincia', 'contains')"
+                [value]="$any(dc.filters['provincia'])?.value">
+            </th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-risk >
+          <tr>
+            <td style="text-align: center;">{{ risk.nuPoliza }}</td>
+            <td style="text-align: center;">{{ risk.idRiesgo }}</td>
+            <td style="text-align: center;">{{ risk.tipoCalle }}</td>
+            <td style="text-align: center;">{{ risk.noCalle }}</td>
+            <td style="text-align: center;">{{ risk.numero }}</td>
+            <td style="text-align: center;">{{ risk.piso }}</td>
+            <td style="text-align: center;">{{ risk.puerta }}</td>
+            <td style="text-align: center;">{{ risk.coPostal }}</td>
+            <td style="text-align: center;">{{ risk.localidad }}</td>
+            <td style="text-align: center;">{{ risk.provincia }}</td>
+            <td style="text-align: right;" (click)="editRisk(risk.idRiesgo)" routerLink="/admin/modifyRisk"><span class="pi pi-pencil" pTooltip="Editar datos del riesgo" tooltipPosition="left"
+                style="color: blue"></span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+</div>

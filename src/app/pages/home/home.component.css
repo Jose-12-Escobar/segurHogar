@@ -1,0 +1,69 @@
+/* Estilos aplicados a la página */
+
+section.masthead {
+  padding-top: 10rem;
+  padding-bottom: calc(10rem - 4.5rem);
+  background: linear-gradient(to bottom, rgba(92, 77, 66, 0.8) 0%, rgba(92, 77, 66, 0.8) 100%), url("../../../assets/images/hero-img-1-min.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+section.masthead h1, section.masthead .h1 {
+  font-size: 2.25rem;
+}
+@media (min-width: 992px) {
+  section.masthead {
+    height: 100vh;
+    min-height: 40rem;
+    padding-top: 4.5rem;
+    padding-bottom: 0;
+  }
+  section.masthead p {
+    font-size: 1.15rem;
+    font-family: "quick-sand";
+  }
+  section.masthead h1, section.masthead .h1 {
+    font-size: 3rem;
+    font-family: "quick-sand";
+  }
+}
+@media (min-width: 1200px) {
+  section.masthead h1, section.masthead .h1 {
+    font-size: 3.5rem;
+  }
+}
+
+
+hr.divider {
+  height: 0.2rem;
+  max-width: 3.25rem;
+  margin: 1.5rem auto;
+  background-color: rgb(244, 98, 58);
+  opacity: 1;
+}
+
+.btn-xl {
+  padding: 1.25rem 2.25rem;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: none;
+  border-radius: 10rem;
+}
+
+.btn-orange {
+  background-color: rgb(244, 98, 58);
+  color: #ffffff;
+}
+/* aqui acaban los estilos aplicables a la página */
+
+@media (max-width: 972px) {
+  section.masthead {
+    height: 100vh;
+    min-height: 40rem;
+    padding-top: 4.5rem;
+    padding-bottom: 0;
+  }
+}
+

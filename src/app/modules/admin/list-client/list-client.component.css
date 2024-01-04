@@ -1,0 +1,8 @@
+tbody, td, tfoot, th, thead, tr {
+  border-bottom: 0.1px !important;
+  border-style: groove !important;
+}
+
+thead tr th{
+  background-color:  rgb(244, 98, 58);
+}

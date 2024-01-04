@@ -1,0 +1,89 @@
+<div class="container">
+  <div class="row justify-content-center padding-top-bottom">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+      <div class="card border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <div class="row">
+            <div class="col-lg-6 d-lg-block bg-register-image"></div>
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="text-center">
+                  <h4 class=" text-dark mb-4 pb-2">Crear una cuenta!</h4>
+                </div>
+
+                <form class="user" [formGroup]="formGroupRegister" (submit)="register()">
+
+                  <div class="row padding-div">
+
+                    <div class="col-sm-6">
+                      <span class="p-float-label">
+                        <input pInputText formControlName="nombre" id="name" class="form-control-user" />
+                        <label htmlFor="name">Nombre</label>
+                      </span>
+                      <small *ngIf="noEsValido('nombre')">{{ getMensaje('nombre') }}</small>
+                    </div>
+                    <div class="col-sm-6">
+                      <span class="p-float-label">
+                        <input pInputText formControlName="apellidos" id="lastName" class="form-control-user" />
+                        <label htmlFor="lastName">Apellidos</label>
+                      </span>
+                      <small *ngIf="noEsValido('apellidos')">{{ getMensaje('apellidos') }}</small>
+                    </div>
+
+                  </div>
+
+                  <div class="">
+                    <span class="p-float-label">
+                      <input pInputText type="email" formControlName="email" id="email" class="form-control-user" />
+                      <label htmlFor="email">Dirección email ...</label>
+                    </span>
+                    <small *ngIf="noEsValido('email')">{{ getMensaje('email') }}</small>
+                  </div>
+
+                  <div class="row padding-div">
+
+                    <div class="col-sm-6 ">
+                      <span class="p-float-label">
+                        <input pInputText type="password" formControlName="password" id="pass" class="form-control-user" />
+                        <label htmlFor="pass">Contraseña</label>
+                      </span>
+                      <small *ngIf="noEsValido('password')">{{ getMensaje('password') }}</small>
+                    </div>
+
+                    <div class="col-sm-6">
+                      <span class="p-float-label">
+                        <input pInputText type="password" formControlName="confirmPassword" id="passConfirm" class="form-control-user" />
+
+                        <label htmlFor="passConfirm">Repetir contraseña</label>
+
+                      </span>
+                      <small *ngIf="noEsValido('confirmPassword')">{{ getMensaje('confirmPassword') }}</small>
+                    </div>
+
+                    <div *ngIf="formGroupRegister.hasError('passwordMismatch') && formGroupRegister.get('confirmPassword')?.dirty" class="text-center">
+                      <small>Las contraseñas no coinciden.</small>
+                    </div>
+
+                  </div>
+                  <div class="">
+                    <button type="submit" pButton pRipple label="Registrar" icon="pi pi-file-edit"
+                      class="btn-register btn-orange"></button>
+                  </div>
+                </form>
+                <hr>
+                <div class="text-center">
+
+                  <a routerLink="/auth/forgotPass" class="small">¿Has olvidado tu contraseña?</a>
+                </div>
+                <div class="text-center">
+                  <a class="small" routerLink="/auth/login">¿Ya tienes una cuenta? Iniciar sesión!</a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>

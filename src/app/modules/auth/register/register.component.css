@@ -1,0 +1,49 @@
+@import"~bootstrap-icons/font/bootstrap-icons.css";
+
+.padding-top-bottom {
+
+  padding: 11rem 0 12rem 0;
+}
+
+.bg-register-image {
+  background-image: url("../../../../assets/images/login.jpg");
+  padding-right: 10px;
+  background-position: center;
+  background-size: cover;
+}
+
+label {
+  margin-left: 1rem;
+}
+
+form.user .form-control-user {
+  width: 100%;
+  border-radius: 10rem;
+  padding: 1rem 1.5rem;
+}
+
+form.user .btn-register {
+  font-size: 0.8rem;
+  border-radius: 10rem;
+  padding: 0.75rem 1rem;
+  display: block;
+  width: 100%;
+}
+
+.small {
+  font-size: 80%;
+  font-weight: 400;
+}
+
+.padding-div {
+  padding: 1.5rem 0 1.5rem 0;
+}
+
+@media screen and (max-width: 992px) {
+  body {
+    .padding-top-bottom {
+      padding-top: 5rem;
+      padding-bottom: 3rem;
+    }
+  }
+}

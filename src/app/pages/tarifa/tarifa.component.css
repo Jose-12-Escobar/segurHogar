@@ -1,0 +1,60 @@
+.untree_co-section {
+  padding-bottom: 15rem;
+  padding-top: 10rem;
+  position: relative;
+}
+
+.pricing {
+  text-align   : center;
+  padding      : 40px;
+  border       : 1px solid #efefef;
+  border-radius: 4px;
+}
+
+.pricing .pricing-plan-title {
+  color: rgb(244, 98, 58);
+}
+
+.pricing .pricing-body .price {
+  margin-bottom: 20px;
+}
+
+.pricing .pricing-body .price .fig {
+  color    : rgb(244, 98, 58);
+  font-size: 30px;
+}
+
+.line-bottom {
+  position      : relative;
+  padding-bottom: 0px;
+  color         : rgb(244, 98, 58);
+}
+
+.line-bottom:before {
+  display   : none;
+  content   : "";
+  position  : absolute;
+  width     : 40px;
+  height    : 3px;
+  background: #ec661f;
+  bottom    : 0;
+}
+
+.line-bottom.text-center:before {
+  left             : 50%;
+  -webkit-transform: translateX(-50%);
+  -ms-transform    : translateX(-50%);
+  transform        : translateX(-50%);
+}
+
+
+@media (max-width: 992px) {
+
+  .untree_co-section {
+    padding-top: 10rem;
+    padding-bottom: 7rem;
+    position: relative;
+  }
+
+}
+

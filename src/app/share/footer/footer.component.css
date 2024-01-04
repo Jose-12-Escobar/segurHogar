@@ -1,0 +1,144 @@
+@import"~bootstrap-icons/font/bootstrap-icons.css";
+
+.site-footer {
+  background: rgb(244, 98, 58);
+  font-size : 14px;
+  color     : #ffffff;
+  padding   : 70px 0;
+}
+
+.site-footer a {
+  color   : #ffffff;
+  position: relative;
+  display : inline-block;
+}
+
+.site-footer .btn:before {
+  display: none;
+}
+
+.site-footer .widget {
+  margin-bottom: 40px;
+  display      : block;
+  position     : relative;
+  z-index      : 1;
+}
+
+.site-footer .widget h3 {
+  font-size    : 16px;
+  color        : #ffffff;
+  margin-bottom: 30px;
+}
+
+.site-footer .widget .links {
+  width: 150px;
+}
+
+.site-footer .widget .links li {
+  margin-bottom: 10px;
+}
+
+.site-footer .widget .links li a {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.site-footer .widget .links li a:hover {
+  color: #ffffff;
+}
+
+.site-footer .social li {
+  display: inline-block;
+}
+
+.site-footer .social li a {
+  display         : inline-block;
+  width           : 30px;
+  height          : 30px;
+  position        : relative;
+  background-color: #ffffff;
+  border-radius   : 50%;
+  color           : #000000;
+}
+
+.site-footer .social li a:before {
+  display: none;
+}
+
+.site-footer .social li a>span {
+  position         : absolute;
+  top              : 50%;
+  left             : 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform    : translate(-50%, -50%);
+  transform        : translate(-50%, -50%);
+}
+
+.site-footer .social li a:hover {
+  background: #2f84ec;
+  color     : #ffffff;
+}
+
+.site-footer .copyright {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+social-icons li {
+  display: inline-block;
+}
+
+.social-icons li a {
+  color        : rgba(255, 255, 255, 0.5);
+  display      : inline-block;
+  width        : 40px;
+  height       : 40px;
+  position     : relative;
+  border-radius: 50%;
+  background   : #303030;
+}
+
+.social-icons li a span {
+  position         : absolute;
+  top              : 50%;
+  left             : 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform    : translate(-50%, -50%);
+  transform        : translate(-50%, -50%);
+}
+
+.social-icons li a:hover {
+  color: #ffffff;
+}
+
+.social-icons li:first-child a {
+  padding-left: 0;
+}
+
+.social-icons.light li a {
+  color        : #000000;
+  display      : inline-block;
+  width        : 40px;
+  height       : 40px;
+  position     : relative;
+  border-radius: 50%;
+  background   : #f8f9fa;
+}
+
+.instagram-gallery {
+  display      : -webkit-box;
+  display      : -ms-flexbox;
+  display      : flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap    : wrap;
+  margin-bottom: -8px;
+  margin-left  : -8px;
+}
+
+.instagram-gallery li {
+  -ms-flex-preferred-size: 33.333%;
+  flex-basis             : 33.333%;
+  max-width              : 33.333%;
+  padding-left           : 8px;
+  padding-bottom         : 8px;
+}
+
+

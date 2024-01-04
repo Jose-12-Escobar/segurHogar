@@ -1,0 +1,11 @@
+:host ::ng-deep .p-element {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.messagg {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
