@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarService } from 'src/app/Services/sidebar.service';
+import { AuthService } from '../services/auth.service';
+import { Login } from '../models/login-model';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-login',
@@ -11,8 +14,13 @@ import { SidebarService } from 'src/app/Services/sidebar.service';
 export class LoginComponent implements OnInit {
 
   formGroupLogin !: FormGroup;
+  dataClient !: Login;
 
-  constructor( public _showSB: SidebarService, private _fb : FormBuilder, private _router: Router){
+  constructor( public _showSB: SidebarService,
+               private _fb : FormBuilder,
+               private _router: Router,
+               private _authService: AuthService,
+               private _messageService: MessageService){
     _showSB.changeShowSidebar(false)
   }
 
@@ -54,7 +62,20 @@ export class LoginComponent implements OnInit {
     if (this.formGroupLogin.invalid) {
           this.formGroupLogin.markAllAsTouched();
         }else{
-          this._router.navigate(['/admin/newClient']);
+
+          this.dataClient = {
+            "email": this.formGroupLogin.get('email')?.value,
+            "password": this.formGroupLogin.get('password')?.value,
+          }
+
+          this._authService.login(this.dataClient).subscribe({
+            next: () => {
+              this._router.navigate(['/admin/newClient']);
+            },
+            error: () => {
+              this._messageService.add({ severity: 'error', summary: 'Credenciales erróneas', detail: 'No existe ninguna cliente con los datos introducidos' });
+            }
+          })
         }
 }
 }

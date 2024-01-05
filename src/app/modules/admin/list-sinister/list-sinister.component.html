@@ -11,22 +11,27 @@
         <ng-template pTemplate="header">
           <tr>
             <th pSortableColumn="refSiniestro" style="width: 8%;">Ref Siniestro<p-sortIcon field="refSiniestro"></p-sortIcon></th>
-            <th pSortableColumn="feSiniestro" style="width: 15%;">Fecha daño<p-sortIcon field="feSiniestro"></p-sortIcon></th>
-            <th pSortableColumn="feInicioRep" style="width: 15%;">Fecha inicio rep<p-sortIcon field="feInicioRep"></p-sortIcon></th>
-            <th pSortableColumn="feFinRep" style="width: 15%;">Fecha fin rep<p-sortIcon field="feFinRep"></p-sortIcon></th>
-            <!-- <th pSortableColumn="modalidad" style="width: 15%;">Modalidad<p-sortIcon field="modalidad"></p-sortIcon></th>
-            <th pSortableColumn="prima" style="width: 10%;">Prima<p-sortIcon field="prima"></p-sortIcon></th>
-            <th pSortableColumn="numCuenta" style="width: 20%;">Nº Cuenta<p-sortIcon field="numCuenta"></p-sortIcon></th>
-            <th style="width: 5%;"></th>
-            <th style="width: 5%;"></th> -->
-          </tr>
-          <tr>
-            <th>
-              <input class="p-inputtext w-100" pInputText type="text"
+            <th pSortableColumn="peritado" style="width: 10%;">Peritado<p-sortIcon field="peritado"></p-sortIcon></th>
+            <th pSortableColumn="feSiniestro" style="width: 10%;">Fecha daño<p-sortIcon field="feSiniestro"></p-sortIcon></th>
+            <th pSortableColumn="feInicioRep" style="width: 10%;">Fecha inicio rep<p-sortIcon field="feInicioRep"></p-sortIcon></th>
+            <th pSortableColumn="feFinRep" style="width: 10%;">Fecha fin rep<p-sortIcon field="feFinRep"></p-sortIcon></th>
+            <th pSortableColumn="importe" style="width: 10%;">Importe<p-sortIcon field="importe"></p-sortIcon></th>
+            <th pSortableColumn="estado" style="width: 10%;">Estado<p-sortIcon field="estado"></p-sortIcon></th>
+            <th style="width: 3%;"></th>
+            <th style="width: 3%;"></th>
+            </tr>
+            <tr>
+              <th>
+                <input class="p-inputtext w-100" pInputText type="text"
                 (input)="dc.filter($any($event.target)?.value, 'refSiniestro', 'contains')"
                 [value]="$any(dc.filters['refSiniestro'])?.value">
-            </th>
-            <th>
+              </th>
+              <th>
+                 <input class="p-inputtext w-75" pInputText type="text"
+                   (input)="dc.filter($any($event.target)?.value, 'peritado', 'contains')"
+                   [value]="$any(dc.filters['peritado'])?.value">
+              </th>
+              <th>
               <input class="p-inputtext w-75" pInputText type="text"
                 (input)="dc.filter($any($event.target)?.value, 'feSiniestro', 'contains')"
                 [value]="$any(dc.filters['feSiniestro'])?.value">
@@ -41,39 +46,35 @@
                 (input)="dc.filter($any($event.target)?.value, 'feFinRep', 'contains')"
                 [value]="$any(dc.filters['feFinRep'])?.value">
             </th>
-            <!-- <th>
+            <th>
               <input class="p-inputtext w-75" pInputText type="text"
-                (input)="dc.filter($any($event.target)?.value, 'modalidad', 'contains')"
-                [value]="$any(dc.filters['modalidad'])?.value">
+                (input)="dc.filter($any($event.target)?.value, 'importe', 'contains')"
+                [value]="$any(dc.filters['importe'])?.value">
             </th>
             <th>
               <input class="p-inputtext w-75" pInputText type="text"
-                (input)="dc.filter($any($event.target)?.value, 'prima', 'contains')"
-                [value]="$any(dc.filters['prima'])?.value">
-            </th>
-            <th>
-              <input class="p-inputtext w-75" pInputText type="text"
-                (input)="dc.filter($any($event.target)?.value, 'numCuenta', 'contains')"
-                [value]="$any(dc.filters['numCuenta'])?.value">
+                (input)="dc.filter($any($event.target)?.value, 'estado', 'contains')"
+                [value]="$any(dc.filters['estado'])?.value">
             </th>
             <th></th>
-            <th></th> -->
+            <th></th>
           </tr>
         </ng-template>
         <ng-template pTemplate="body" let-sinister>
           <tr>
             <td style="text-align: center;">{{ sinister.refSiniestro }}</td>
+            <td style="text-align: center;" *ngIf="sinister.peritado === true"><i class="bi bi-check2-circle text-success fs-4"></i> Sí</td>
+            <td style="text-align: center;" *ngIf="sinister.peritado === false"><i class="bi bi-x-circle text-danger fs-4"></i> No</td>
             <td style="text-align: center;">{{ sinister.feSiniestro }}</td>
             <td style="text-align: center;">{{ sinister.feInicioReparacion }}</td>
             <td style="text-align: center;">{{ sinister.feFinReparacion }}</td>
-            <!-- <td style="text-align: center;">{{ policy.idModalidad.descripcion }}</td>
-            <td style="text-align: center;">{{ policy.prima }},00 €</td>
-            <td style="text-align: center;">{{ policy.nuCuenta }}</td>
-            <td style="text-align: right;" (click)="editPolicy(policy.idPoliza)" routerLink="/admin/modifyPolicy"><span class="pi pi-pencil" pTooltip="Editar datos de la poliza" tooltipPosition="left"
+            <td style="text-align: center;">{{ sinister.importeSiniestro }} €</td>
+            <td style="text-align: center;">{{ sinister.idEstado.descripcion }}</td>
+            <td style="text-align: right;" routerLink="/admin/modifySinister"><span class="pi pi-pencil" pTooltip="Editar datos del siniestro" tooltipPosition="left"
                 style="color: blue"></span>
             </td>
-            <td style="text-align: right;" (click)="deletePolicy(policy)"><span class="pi pi-trash" pTooltip="Eliminar poliza"
-                tooltipPosition="left" style="color: red"></span></td> -->
+            <td style="text-align: right;"><span class="pi pi-trash" pTooltip="Eliminar siniestro"
+                tooltipPosition="left" style="color: red"></span></td>
           </tr>
         </ng-template>
       </p-table>

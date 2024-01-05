@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Client } from '../models/client-model';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { ApiService } from 'src/app/Services/api.service';
 
 
 
@@ -12,13 +13,12 @@ export class ClientService {
 
   baseUrl !: string;
 
-  constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:8070/client'
-    //this.baseUrl = 'http://192.168.1.39:8070/client'
+  constructor(private http: HttpClient,  private _baseUrl: ApiService) {
+    this.baseUrl = `${this._baseUrl.getBaseUrl()}/client`;
   }
 
   getAllClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(`${this.baseUrl}`)
+    return this.http.get<Client[]>(this.baseUrl)
   }
 
   getClientByDni(dni: string): Observable<Client> {
@@ -30,7 +30,7 @@ export class ClientService {
   }
 
   getClientByPhone(telefono: string): Observable<Client> {
-    return this.http.get<Client>(`${this.baseUrl}/telefono/${telefono}`)
+    return this.http.get<Client>(`${this.baseUrl}telefono/${telefono}`)
   }
 
   getClientById(id: string): Observable<Client> {

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Risk } from '../models/risk-model';
+import { ApiService } from 'src/app/Services/api.service';
 
 
 
@@ -12,9 +13,8 @@ export class RiskService {
 
   baseUrl !: string;
 
-  constructor(private http: HttpClient) {
-    this.baseUrl = 'http://localhost:8070/risk';
-    //this.baseUrl = 'http://192.168.1.39:8070/risk';
+  constructor(private http: HttpClient, private _baseUrl: ApiService) {
+    this.baseUrl = `${this._baseUrl.getBaseUrl()}/risk`;
   }
 
   getAllRisk(): Observable<Risk[]> {

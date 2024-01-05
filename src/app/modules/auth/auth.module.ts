@@ -9,6 +9,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { PasswordModule } from 'primeng/password';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -20,6 +21,7 @@ import { ButtonModule } from 'primeng/button';
     PasswordModule,
     InputTextModule,
     ButtonModule
-  ]
+  ],
+  providers: [MessageService],
 })
 export class AuthModule { }
