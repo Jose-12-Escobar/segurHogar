@@ -19,4 +19,23 @@ export class SinisterService {
     return this.http.get<Sinister[]>(this.baseUrl)
   }
 
+  getSinisterById(id: number): Observable<Sinister> {
+    return this.http.get<Sinister>(`${this.baseUrl}/${id}`)
+  }
+
+  getSinisterByRef(refSinister: string): Observable<Sinister> {
+    return this.http.get<Sinister>(`${this.baseUrl}/refSiniestro/${refSinister}`)
+  }
+
+  deleteSinisterById(id: number): Observable<Sinister> {
+    return this.http.delete<Sinister>(`${this.baseUrl}/${id}`)
+  }
+
+  postNewSinister(sinister: Sinister): Observable<Sinister> {
+    return this.http.post<Sinister>(this.baseUrl, sinister)
+  }
+
+  updateSinister(sinister: Sinister): Observable<Sinister> {
+    return this.http.put<Sinister>(this.baseUrl, sinister)
+  }
 }

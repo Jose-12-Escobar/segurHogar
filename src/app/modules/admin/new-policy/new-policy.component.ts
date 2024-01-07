@@ -65,7 +65,7 @@ export class NewPolicyComponent implements OnInit {
       estado: [null, [Validators.required]],
       modalidad: [null, [Validators.required]],
       prima: [null, [Validators.required]],
-      nuPoliza: [null, [Validators.required]],
+      nuPoliza: [null, [Validators.required, Validators.pattern(/^[sS][hH]\d{2}$/)]],
       numeroCuenta: [null, [Validators.required, Validators.maxLength(24), ValidatorCuentaBancaria.validIban]],
       tipoCalle: [null, [Validators.required]],
       noCalle: [null, [Validators.required]],
@@ -109,6 +109,9 @@ export class NewPolicyComponent implements OnInit {
     }
     else if (error?.['dateEndYoungerStart']) {
       msg = 'La fecha de vencimiento no puede ser inferior a la fecha de inicio.'
+    }
+    else if (error?.['pattern']) {
+      msg = 'El número de poliza debe estar compuesto por las dos letras "SH" y dos números Ej: SH04'
     }
     else if (error?.['ibanInvalido']) {
       msg = 'Número de cuenta invalido.'

@@ -1,1 +1,134 @@
-<p>modify-sinister works!</p>
+<div class="container-fluid">
+  <p-toast></p-toast>
+  <div class="p-fluid grid">
+
+    <form class="col-12" [formGroup]="formGroupSearch" (submit)="searchSinisterByRef()">
+
+      <p-card>
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-3 text-uppercase">Modificar<span class="text-orange"> siniestro</span> </p>
+            <p class="fs-6 text-uppercase">Buscar siniestro</p>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-2">
+            <span class="p-float-label">
+              <input pInputText id="refSinister" formControlName="refSinister" />
+              <label htmlFor="refSinister">Referencia siniestro</label>
+            </span>
+            <small *ngIf="noEsValido('refSinister',formGroupSearch)">{{ getMensaje('refSinister',formGroupSearch)
+              }}</small>
+          </div>
+
+          <div class="md:col-4 lg:col-2 ms-3">
+            <button type="submit" pButton pRipple label="Buscar" icon="pi pi-search" class="btn-orange"></button>
+          </div>
+        </div>
+
+      </p-card>
+
+    </form>
+
+    <p-card class="col-12 mt-3">
+      <form class="col-12" [formGroup]="formGroupModifySinister" (submit)="guardarDatos()">
+
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-6 text-uppercase">Datos del siniestro</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="refSiniestro" formControlName="ref_sinister" />
+              <label for="refSiniestro">Referencia siniestro</label>
+            </span>
+            <small *ngIf="noEsValido('ref_sinister',formGroupModifySinister)">{{
+              getMensaje('ref_sinister',formGroupModifySinister) }}</small>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="lg:col-4 md:col-6 py-4">
+            <span class="p-float-label">
+              <p-calendar (ngModelChange)="enableInputFechaInicio()" id="fe_dano" [readonlyInput]="true" [showIcon]="true" dateFormat="yy/mm/dd"
+                formControlName="fe_siniestro"></p-calendar>
+              <label for="fe_dano">Fecha siniestro</label>
+            </span>
+            <small *ngIf="noEsValido('fe_siniestro',formGroupModifySinister)">{{
+              getMensaje('fe_siniestro',formGroupModifySinister) }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-6 py-4">
+            <span class="p-float-label">
+              <p-dropdown [options]="state" optionLabel="descripcion" inputid="estado"
+                formControlName="state"></p-dropdown>
+              <label for="estado">Estado</label>
+            </span>
+            <small *ngIf="noEsValido('state',formGroupModifySinister)">{{ getMensaje('state',formGroupModifySinister)
+              }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-6 py-4">
+            <span class="p-float-label">
+              <textarea formControlName="descripcion" id="descripcion" rows="1" cols="30" pInputTextarea></textarea>
+              <label for="descripcion">Descripción</label>
+            </span>
+            <small
+              *ngIf="noEsValido('descripcion',formGroupModifySinister)">{{getMensaje('descripcion',formGroupModifySinister)
+              }}</small>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="lg:col-4 md:col-6 py-4">
+            <span class="p-float-label">
+              <p-calendar (ngModelChange)="enableInputFechaFin()" id="feInicioRep" [readonlyInput]="true" dateFormat="yy/mm/dd" [showIcon]="true" formControlName="fe_inicio_rep"></p-calendar>
+              <label for="feInicioRep">Fecha inicio reparación</label>
+            </span>
+            <small *ngIf="noEsValido('fe_inicio_rep',formGroupModifySinister)">{{ getMensaje('fe_inicio_rep',formGroupModifySinister) }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-6 py-4">
+            <span class="p-float-label">
+              <p-calendar id="feFinRep" [readonlyInput]="true" dateFormat="yy/mm/dd" [showIcon]="true" formControlName="fe_fin_rep"></p-calendar>
+              <label for="feFinRep">Fecha fin reparación</label>
+            </span>
+            <small *ngIf="noEsValido('fe_fin_rep',formGroupModifySinister)">{{ getMensaje('fe_fin_rep',formGroupModifySinister) }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <p-inputNumber mode="currency" formControlName="coste" inputId="currency-germany" currency="EUR"
+                locale="de-DE"> </p-inputNumber>
+              <label for="numero">Coste</label>
+            </span>
+            <small *ngIf="noEsValido('coste',formGroupModifySinister)">{{ getMensaje('coste',formGroupModifySinister) }}</small>
+          </div>
+
+          <div class="lg:col-8 md:col-6 py-4">
+            Peritado:
+            <p-radioButton formControlName="peritado" [value]=true inputId="yes" class="ml-2"></p-radioButton>
+            <label for="yes" class="ml-2">Sí</label>
+            <p-radioButton formControlName="peritado" [value]=false inputId="no" class="ml-2"></p-radioButton>
+            <label for="no" class="ml-2">No</label><br>
+            <small *ngIf="noEsValido('peritado',formGroupModifySinister)">{{ getMensaje('peritado',formGroupModifySinister) }}</small>
+          </div>
+        </div>
+
+
+
+          <div class="grid py-2">
+            <div class="lg:col-2 md:col-6">
+              <button type="submit" pButton pRipple label="Guardar" icon="pi pi-save" class="btn-orange"></button>
+            </div>
+            <div class="lg:col-2 md:col-6">
+              <button pButton pRipple (click)="clearForm()" label="Cancelar" icon="pi pi-times"class="btn-orange"></button>
+            </div>
+          </div>
+      </form>
+    </p-card>
+
+  </div>
+</div>

@@ -7,6 +7,9 @@ import { MessageService } from 'primeng/api';
 import { ClientService } from '../services/client.service';
 import { Client } from '../models/client-model';
 import { Policy } from '../models/policy-model';
+import { IdEstado, Sinister } from '../models/sinister-model';
+import { SinisterService } from '../services/sinister.service';
+import { PolicyService } from '../services/policy.service';
 
 @Component({
   selector: 'app-new-sinister',
@@ -18,25 +21,30 @@ export class NewSinisterComponent implements OnInit {
   selectedCategory !: any;
   formGroupNewSinister !: FormGroup;
   formGroupSearch !: FormGroup;
-  policies !: Policy[];
-  showTable : boolean = false;
+  policies : Policy[] = [];
+  showTable: boolean = false;
+  sinister !: Sinister;
+  idRisk !: number;
 
-  state: { state: string, key: string }[] = [
-    { state: 'Tramitado', key: '1' },
-    { state: 'En proceso', key: '2' },
-    { state: 'Finalizado', key: '3' }
+  state: IdEstado[] = [
+    { "idEstado": 1, "descripcion": 'Tramitado' },
+    { "idEstado": 2, "descripcion": 'En proceso' },
+    { "idEstado": 3, "descripcion": 'Finalizado' }
   ];
 
   constructor(public _show: SidebarService,
-              private _fb: FormBuilder,
-              private _messageService: MessageService,
-              private _clientService: ClientService) {
+    private _fb: FormBuilder,
+    private _messageService: MessageService,
+    private _clientService: ClientService,
+    private _sinisterService: SinisterService,
+    private _policyService: PolicyService) {
     this._show.changeShowSidebar(true);
   }
 
   ngOnInit(): void {
     this.initFormSinister();
     this.initFormSearch();
+    this.formGroupNewSinister.disable();
   }
 
   initFormSearch() {
@@ -47,32 +55,33 @@ export class NewSinisterComponent implements OnInit {
   }
   initFormSinister() {
     this.formGroupNewSinister = this._fb.group({
-      ref_sinister: [null, [Validators.required]],
+      ref_sinister: [null, [Validators.required, Validators.pattern(/^[sS][iI][tT]\d{2}$/)]],
       fe_dano: [null, [Validators.required, ValidatorDate.DateTopCurrent]],
       state: [null, [Validators.required]],
-      fe_inicio_rep: [null, [Validators.required, this.dateStartOlderDamage.bind(this)]],
-      coste: [null, [Validators.required]],
-      peritado: [null, [Validators.required]],
-      descripcion: [null, [Validators.maxLength(255)]]
+      descripcion: [null, [Validators.maxLength(255)]],
+      //fe_inicio_rep: [null, [Validators.required, this.dateStartOlderDamage.bind(this)]],
+      //coste: [null, [Validators.required]],
+      //peritado: [null, [Validators.required]],
     });
   }
-  searchSinister() {
+  searchRisk() {
     if (this.formGroupSearch.invalid) {
       this.formGroupSearch.markAllAsTouched();
     } else {
+      this.idRisk = 0;
       if (this.formGroupSearch.value.documentoId) {
         this.searchSinisterByDni();
       }
-      /*else if (this.formGroupSearch.value.nuPoliza) {
+      else if (this.formGroupSearch.value.nuPoliza) {
         this.searchSinisterByNumPolicy();
-      }*/
+      }
       else {
-        this._messageService.add({severity: 'error', summary: 'Error', detail: 'Debe introducir algun valor para realizar la busqueda'});
+        this._messageService.add({ severity: 'error', summary: 'Error', detail: 'Debe introducir algun valor para realizar la busqueda' });
       }
     }
   }
 
-  searchSinisterByDni(){
+  searchSinisterByDni() {
     this._clientService.getClientByDni(this.formGroupSearch.get('documentoId')?.value).subscribe(
       (res) => {
         this.getPolicy(res);
@@ -91,14 +100,26 @@ export class NewSinisterComponent implements OnInit {
       this.showTable = true;
     } else {
       this.showTable = false;
-      //this.formGroupModifyPolicy.reset();
-      //this.formGroupModifyPolicy.disable();
+      this.formGroupNewSinister.reset();
+      this.formGroupNewSinister.disable();
       this._messageService.add({ severity: 'info', summary: 'Info', detail: `No se encuentran polizas pra el cliente ${client.documento}` });
     }
   }
 
   searchSinisterByNumPolicy() {
-
+    this._policyService.getPolicyByNum(this.formGroupSearch.get('nuPoliza')?.value).subscribe(
+      (res) => {
+        this.policies[0] = res;
+        this.showTable = true;
+      },
+      () => {
+        this.showTable = false;
+        this.formGroupNewSinister.reset();
+        this.formGroupNewSinister.disable();
+        this.formGroupSearch.get('nuPoliza')?.setErrors({ 'numPolicyInvalid': true })
+        this._messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'No existe niguna poliza con este número' });
+      }
+    )
   }
 
   noEsValido(campo: string, formGroup: FormGroup) {
@@ -111,23 +132,37 @@ export class NewSinisterComponent implements OnInit {
 
     if (error?.['required']) {
       msg = 'El campo es obligatorio';
-    }else if(error?.['fechaSuperiorActual']){
+    }
+    else if (error?.['fechaSuperiorActual']) {
       msg = 'La fecha del daño no puede ser superior a la fecha actual.'
-    }else if(error?.['dateStartOlderDamage']) {
+    }
+    else if (error?.['dateStartOlderDamage']) {
       msg = 'La fecha de inicio de reparacion no puede ser antes que la fecha del daño.'
-    }else if(error?.['dniInvalid']) {
+    }
+    else if (error?.['dniInvalid']) {
       msg = 'El DNI no es valido.'
-    }else if(error?.['documentInvalid']) {
+    }
+    else if (error?.['documentInvalid']) {
       msg = 'Documento de identificacion invalido'
-    }else if(error?.['nieInvalid']) {
+    }
+    else if (error?.['nieInvalid']) {
       msg = 'El NIE no es valido'
-    }else if (error?.['maxlength']) {
+    }
+    else if (error?.['pattern']) {
+      msg = 'El codigo de referencia debe estar compuesto por las tres letras "SIT" y dos números'
+    }
+    else if (error?.['maxlength']) {
       msg = {
         descripcion: "El máximo de caracteres es 255"
       }[campo] || '';
     }
 
     return msg;
+  }
+
+  sevaIdRisk(idRisk: number) {
+    this.idRisk = idRisk;
+    this.formGroupNewSinister.enable();
   }
 
   clearForm() {
@@ -150,17 +185,47 @@ export class NewSinisterComponent implements OnInit {
     return null;
   }
 
-  /*
+  existRefSinister(campo: string) {
+    if (this.formGroupNewSinister.controls[campo].dirty && this.formGroupNewSinister.controls[campo].valid) {
+      this._sinisterService.getSinisterByRef(this.formGroupNewSinister.get(campo)?.value).subscribe(
+        () => {
+          this.formGroupNewSinister.get(campo)?.setErrors({ 'refSinisterInvslid': true })
+          this._messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'Ya existe un siniestro con esa referencia' });
+        }
+      )
+    }
+  }
 
   guardarDatos() {
     if (this.formGroupNewSinister.invalid) {
       this.formGroupNewSinister.markAllAsTouched();
+    } else {
+      this.sinister = {
+        "idSiniestro": 0,
+        "idRiesgo": this.idRisk,
+        "feSiniestro": this.formGroupNewSinister.get('fe_dano')?.value,
+        "importeSiniestro": null ,
+        "feInicioReparacion": null,
+        "feFinReparacion": null,
+        "peritado": false,
+        "idEstado": { "idEstado": this.formGroupNewSinister.get('state')?.value.idEstado },
+        "description": this.formGroupNewSinister.get('descripcion')?.value,
+        "refSiniestro": this.formGroupNewSinister.get('ref_sinister')?.value
+      }
+console.log(this.sinister)
+      this._sinisterService.postNewSinister(this.sinister).subscribe({
+        next: () => {
+          this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Siniestro creado con exito' });
+          this.formGroupNewSinister.reset();
+        },
+        error: () => {
+          this._messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al crear el siniestro' });
+
+        }
+      }
+      )
     }
   }
-
-
-
-  */
 
 }
 

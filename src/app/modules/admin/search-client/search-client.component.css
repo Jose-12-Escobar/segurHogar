@@ -9,3 +9,6 @@
   opacity: initial;
 }
 
+:host ::ng-deep .p-inputtext, .p-component, .p-element, .p-inputmask {
+  opacity: initial;
+}

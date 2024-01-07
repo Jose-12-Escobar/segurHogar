@@ -9,7 +9,7 @@
         [rows]="10" [rowsPerPageOptions]="[5, 10, 25]" styleClass="p-datatable-striped  w-100">
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="numPoliza" style="width: 10%;">Nº Poliza<p-sortIcon field="numPoliza"></p-sortIcon></th>
+            <th pSortableColumn="nuPoliza" style="width: 10%;">Nº Poliza<p-sortIcon field="nuPoliza"></p-sortIcon></th>
             <th pSortableColumn="idRiesgo" style="width: 10%;">Id<p-sortIcon field="idRiesgo"></p-sortIcon></th>
             <th pSortableColumn="tipoCalle" style="width: 10%;">Tipo calle<p-sortIcon field="tipoCalle"></p-sortIcon></th>
             <th pSortableColumn="noCalle" style="width: 15%;">Nombre calle<p-sortIcon field="noCalle"></p-sortIcon></th>
@@ -17,15 +17,15 @@
             <th pSortableColumn="piso" style="width: 10%;">Piso<p-sortIcon field="piso"></p-sortIcon></th>
             <th pSortableColumn="puerta" style="width: 10%;">Puerta<p-sortIcon field="puerta"></p-sortIcon></th>
             <th pSortableColumn="coPostal" style="width: 10%;">CP<p-sortIcon field="coPostal"></p-sortIcon></th>
-            <th pSortableColumn="localidad" style="width: 15%;">Localidad<p-sortIcon field="localidad"></p-sortIcon></th>
+            <th pSortableColumn="localidad" style="width: 10%;">Localidad<p-sortIcon field="localidad"></p-sortIcon></th>
             <th pSortableColumn="provincia" style="width: 15%;">Provincia<p-sortIcon field="provincia"></p-sortIcon></th>
-            <th style="width: 5%;"></th>
+            <th style="width: 3%;"></th>
           </tr>
           <tr>
             <th>
               <input class="p-inputtext w-100" pInputText type="text"
-                (input)="dc.filter($any($event.target)?.value, 'numPoliza', 'contains')"
-                [value]="$any(dc.filters['numPoliza'])?.value">
+                (input)="dc.filter($any($event.target)?.value, 'nuPoliza', 'contains')"
+                [value]="$any(dc.filters['nuPoliza'])?.value">
             </th>
             <th>
               <input class="p-inputtext w-100" pInputText type="text"

@@ -10,9 +10,10 @@
         [rows]="10" [rowsPerPageOptions]="[5, 10, 25]" styleClass="p-datatable-striped  w-100">
         <ng-template pTemplate="header">
           <tr>
-            <th pSortableColumn="documento" style="width: 20%;">Documento ID<p-sortIcon field="documento"></p-sortIcon></th>
-            <th pSortableColumn="nombre" style="width: 20%;">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
-            <th pSortableColumn="apellidos" style="width: 20%;">Apellidos<p-sortIcon field="apellidos"></p-sortIcon></th>
+            <th pSortableColumn="documento" style="width: 15%;">Documento ID<p-sortIcon field="documento"></p-sortIcon></th>
+            <th pSortableColumn="nombre" style="width: 15%;">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+            <th pSortableColumn="primerApellido" style="width: 15%;">1º Apellido<p-sortIcon field="primerApellido"></p-sortIcon></th>
+            <th pSortableColumn="segundoApellido" style="width: 15%;">2º Apellido<p-sortIcon field="segundoApellido"></p-sortIcon></th>
             <th pSortableColumn="telefono" style="width: 20%;">Teléfono<p-sortIcon field="telefono"></p-sortIcon></th>
             <th pSortableColumn="email" style="width: 20%;">Email<p-sortIcon field="email"></p-sortIcon></th>
             <th style="width: 5%;"></th>
@@ -20,27 +21,32 @@
           </tr>
           <tr>
             <th>
-              <input class="p-inputtext w-75" pInputText type="text"
+              <input class="p-inputtext w-100" pInputText type="text"
                 (input)="dc.filter($any($event.target)?.value, 'documento', 'contains')"
                 [value]="$any(dc.filters['documento'])?.value">
             </th>
             <th>
-              <input class="p-inputtext w-75" pInputText type="text"
+              <input class="p-inputtext w-100" pInputText type="text"
                 (input)="dc.filter($any($event.target)?.value, 'nombre', 'contains')"
                 [value]="$any(dc.filters['nombre'])?.value">
             </th>
             <th>
-              <input class="p-inputtext w-75" pInputText type="text"
-                (input)="dc.filter($any($event.target)?.value, 'apellidos', 'contains')"
-                [value]="$any(dc.filters['apellidos'])?.value">
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'primerApellido', 'contains')"
+                [value]="$any(dc.filters['primerApellido'])?.value">
             </th>
             <th>
-              <input class="p-inputtext w-75" pInputText type="text"
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'segundoApellido', 'contains')"
+                [value]="$any(dc.filters['segundoApellido'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
                 (input)="dc.filter($any($event.target)?.value, 'telefono', 'contains')"
                 [value]="$any(dc.filters['telefono'])?.value">
             </th>
             <th>
-              <input class="p-inputtext w-75" pInputText type="text"
+              <input class="p-inputtext w-100" pInputText type="text"
                 (input)="dc.filter($any($event.target)?.value, 'email', 'contains')"
                 [value]="$any(dc.filters['email'])?.value">
             </th>
@@ -52,7 +58,8 @@
           <tr>
             <td style="text-align: center;">{{ client.documento }}</td>
             <td style="text-align: center;">{{ client.nombre }}</td>
-            <td style="text-align: center;">{{ client.primerApellido }} {{ client.segundoApellido }}</td>
+            <td style="text-align: center;">{{ client.primerApellido }}</td>
+            <td style="text-align: center;">{{ client.segundoApellido }}</td>
             <td style="text-align: center;">{{ client.telefono }}</td>
             <td style="text-align: center;">{{ client.mail }}</td>
             <td style="text-align: right;" routerLink="/admin/modifyClient" (click)="editClient(client.idCliente)">

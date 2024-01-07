@@ -72,7 +72,6 @@ export class ModifyRiskComponent implements OnInit {
     if (this.formGroupSearch.invalid) {
       this.formGroupSearch.markAllAsTouched();
     } else {
-      console.log('numero de poliza: ', this.formGroupSearch.get('numPoliza')?.value)
       this._policyService.getPolicyByNum(this.formGroupSearch.get('numPoliza')?.value).subscribe({
         next: (res: Policy) => {
           this.policy = res;

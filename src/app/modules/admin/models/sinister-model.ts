@@ -1,17 +1,17 @@
 export interface Sinister {
-  idSiniestro?: number;
+  idSiniestro : number;
   idRiesgo?: number;
-  feSiniestro?: string;
-  importeSiniestro?: number;
-  feInicioReparacion?: string;
-  feFinReparacion?: string;
+  feSiniestro : string;
+  importeSiniestro?: number|null;
+  feInicioReparacion?: string|null ;
+  feFinReparacion?: string|null;
   peritado?: boolean;
   idEstado?: IdEstado;
   description?: string;
   refSiniestro?: string;
 }
 
-interface IdEstado {
+export interface IdEstado {
   idEstado?: number;
   descripcion?: string;
 }

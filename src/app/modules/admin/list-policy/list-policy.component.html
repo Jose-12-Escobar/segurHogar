@@ -15,11 +15,11 @@
             <th pSortableColumn="feInicio" style="width: 15%;">Fecha inicio<p-sortIcon field="feInicio"></p-sortIcon>
             </th>
             <th pSortableColumn="feVencimiento" style="width: 15%;">Fecha vencimiento<p-sortIcon field="feVencimiento"></p-sortIcon></th>
-            <th pSortableColumn="estado" style="width: 15%;">Estado<p-sortIcon field="estado"></p-sortIcon>
+            <th pSortableColumn="idSituacionPoliza.descripcion" style="width: 15%;">Estado<p-sortIcon field="idSituacionPoliza.descripcion"></p-sortIcon>
             </th>
-            <th pSortableColumn="modalidad" style="width: 15%;">Modalidad<p-sortIcon field="modalidad"></p-sortIcon></th>
+            <th pSortableColumn="idModalidad.descripcion" style="width: 15%;">Modalidad<p-sortIcon field="idModalidad.descripcion"></p-sortIcon></th>
             <th pSortableColumn="prima" style="width: 10%;">Prima<p-sortIcon field="prima"></p-sortIcon></th>
-            <th pSortableColumn="numCuenta" style="width: 20%;">Nº Cuenta<p-sortIcon field="numCuenta"></p-sortIcon></th>
+            <th pSortableColumn="nuCuenta" style="width: 20%;">Nº Cuenta<p-sortIcon field="nuCuenta"></p-sortIcon></th>
             <th style="width: 5%;"></th>
             <th style="width: 5%;"></th>
           </tr>
@@ -41,13 +41,13 @@
             </th>
             <th>
               <input class="p-inputtext w-75" pInputText type="text"
-                (input)="dc.filter($any($event.target)?.value, 'estado', 'contains')"
-                [value]="$any(dc.filters['estado'])?.value">
+                (input)="dc.filter($any($event.target)?.value, 'idSituacionPoliza.descripcion', 'contains')"
+                [value]="$any(dc.filters['idSituacionPoliza.descripcion'])?.value">
             </th>
             <th>
               <input class="p-inputtext w-75" pInputText type="text"
-                (input)="dc.filter($any($event.target)?.value, 'modalidad', 'contains')"
-                [value]="$any(dc.filters['modalidad'])?.value">
+                (input)="dc.filter($any($event.target)?.value, 'idModalidad.descripcion', 'contains')"
+                [value]="$any(dc.filters['idModalidad.descripcion'])?.value">
             </th>
             <th>
               <input class="p-inputtext w-75" pInputText type="text"
@@ -55,9 +55,9 @@
                 [value]="$any(dc.filters['prima'])?.value">
             </th>
             <th>
-              <input class="p-inputtext w-75" pInputText type="text"
-                (input)="dc.filter($any($event.target)?.value, 'numCuenta', 'contains')"
-                [value]="$any(dc.filters['numCuenta'])?.value">
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'nuCuenta', 'contains')"
+                [value]="$any(dc.filters['nuCuenta'])?.value">
             </th>
             <th></th>
             <th></th>

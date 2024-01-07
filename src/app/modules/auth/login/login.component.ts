@@ -68,14 +68,14 @@ export class LoginComponent implements OnInit {
             "password": this.formGroupLogin.get('password')?.value,
           }
 
-          this._authService.login(this.dataClient).subscribe({
-            next: () => {
+          //this._authService.login(this.dataClient).subscribe({
+            //next: () => {
               this._router.navigate(['/admin/newClient']);
-            },
-            error: () => {
-              this._messageService.add({ severity: 'error', summary: 'Credenciales erróneas', detail: 'No existe ninguna cliente con los datos introducidos' });
-            }
-          })
+            //},
+            //error: () => {
+             // this._messageService.add({ severity: 'error', summary: 'Credenciales erróneas', detail: 'No existe ninguna cliente con los datos introducidos' });
+            //}
+          //})
         }
 }
 }
