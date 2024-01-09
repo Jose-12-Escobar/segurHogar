@@ -42,8 +42,8 @@ export class ModifySinisterComponent implements OnInit {
     if (this.idSinisterLocalStorage) {
       this._sinisterService.getSinisterById(this.idSinisterLocalStorage).subscribe({
         next: (res: Sinister) => {
-          this.showRiskInformation(res);
           this.formGroupModifySinister.enable();
+          this.showRiskInformation(res);
           this.formGroupSearch.disable();
           localStorage.removeItem('idSinister');
         }
@@ -64,7 +64,7 @@ export class ModifySinisterComponent implements OnInit {
       state: [null, [Validators.required]],
       descripcion: [null, [Validators.maxLength(255)]],
       fe_inicio_rep: [null, [Validators.required, this.dateStartOlderDamage.bind(this)]],
-      fe_fin_rep: [null, [this.dateEndOlderStart.bind(this)]],
+      fe_fin_rep: [null, [Validators.required, this.dateEndOlderStart.bind(this)]],
       coste: [null, [Validators.required]],
       peritado: [null, [Validators.required]],
     });
@@ -97,6 +97,8 @@ export class ModifySinisterComponent implements OnInit {
     }
     else if (error?.['nieInvalid']) {
       msg = 'El NIE no es valido'
+    } else if (error?.['requiredDateStart']) {
+      msg = 'Debe añadir primero la fecha de inicio'
     }
     else if (error?.['maxlength']) {
       msg = {
@@ -133,14 +135,20 @@ export class ModifySinisterComponent implements OnInit {
     this.formGroupModifySinister.controls['coste'].setValue(sinister.importeSiniestro);
     this.formGroupModifySinister.controls['peritado'].setValue(sinister.peritado);
 
-    if (sinister.feInicioReparacion && sinister.feFinReparacion) {
+    if (sinister.feInicioReparacion) {
       this.formGroupModifySinister.controls['fe_inicio_rep'].setValue(new Date(sinister.feInicioReparacion));
+    }else {
+      this.formGroupModifySinister.controls['fe_inicio_rep'].reset();
+    }
+    if (sinister.feFinReparacion) {
       this.formGroupModifySinister.controls['fe_fin_rep'].setValue(new Date(sinister.feFinReparacion));
+    }else {
+      this.formGroupModifySinister.controls['fe_fin_rep'].reset();
     }
 
     this.formGroupModifySinister.enable();
     this.formGroupModifySinister.get('fe_siniestro')?.disable();
-    this.formGroupModifySinister.get('fe_fin_rep')?.disable();
+    this.formGroupModifySinister.get('ref_sinister')?.disable();
   }
 
   guardarDatos() {
@@ -177,6 +185,7 @@ export class ModifySinisterComponent implements OnInit {
 
   clearForm() {
     this.formGroupModifySinister.reset();
+    this.formGroupSearch.enable();
   }
 
   enableInputFechaInicio() {
@@ -184,15 +193,6 @@ export class ModifySinisterComponent implements OnInit {
       this.formGroupModifySinister.get('fe_inicio_rep')?.disable();
      }
   }
-
-  enableInputFechaFin() {
-    if (this.formGroupModifySinister.controls['fe_inicio_rep'] && this.formGroupModifySinister.controls['fe_inicio_rep'].valid) {
-        this.formGroupModifySinister.get('fe_fin_rep')?.enable();
-    }else if (this.formGroupModifySinister.controls['fe_inicio_rep'] && this.formGroupModifySinister.controls['fe_inicio_rep'].invalid) {
-        this.formGroupModifySinister.get('fe_fin_rep')?.disable();
-        this.formGroupModifySinister.get('fe_fin_rep')?.reset();
-    }
- }
 
   dateStartOlderDamage(control: AbstractControl): { [key: string]: boolean } | null {
     const fechaDano = this.formGroupModifySinister?.get('fe_siniestro')?.value;
@@ -222,6 +222,10 @@ export class ModifySinisterComponent implements OnInit {
         return { 'dateEndOlderStart': true };
       }
     }
+    if(!fechaInicio) {
+      return { 'requiredDateStart': true };
+    }
+
 
     return null;
   }

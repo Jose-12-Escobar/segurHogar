@@ -202,7 +202,7 @@ export class ModifyClientComponent implements OnInit {
       this._clientService.getClientByEmail(this.formGroupClient.get(campo)?.value).subscribe(
         () => {
           this.formGroupClient.get(campo)?.setErrors({ 'emailInvalido': true })
-          this._messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'El correo electrónico nuveo no puede ser igual al anterior' });
+          this._messageService.add({ severity: 'warn', summary: 'Advertencia', detail: 'El correo electrónico introducido ya existe' });
         }
       )
     }
