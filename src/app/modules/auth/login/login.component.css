@@ -2,7 +2,7 @@
 
 .padding-top-bottom {
 
-  padding: 14rem 0 14rem 0;
+  padding: 10rem 0 12rem 0;
 }
 .o-hidden {
   overflow: hidden !important;
@@ -41,6 +41,10 @@ form.user .btn-login {
   font-weight: 400;
 }
 
+.cursor-pointer {
+  cursor: pointer;
+}
+
 @media screen and (max-width: 992px) {
   body {
     .padding-top-bottom {
@@ -49,3 +53,4 @@ form.user .btn-login {
     }
   }
 }
+

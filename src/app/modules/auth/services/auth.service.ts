@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/Services/api.service';
-import { Login } from '../models/login-model';
+import { LoginIn, LoginOut } from '../models/login-model';
+import { RegisterIn, RegisterOut } from '../models/register-model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,12 @@ export class AuthService {
     this.baseUrl = `${this._baseUrl.getBaseUrl()}`;
   }
 
-  login(dataClient: Login): Observable<{}[]> {
-    return this.http.post<{}[]>(this.baseUrl, dataClient)
+  login(dataLogin: LoginIn): Observable<LoginOut> {
+    return this.http.post<LoginOut>(`${this.baseUrl}/login`, dataLogin)
+  }
+
+  register(dataRegister: RegisterIn ): Observable<RegisterOut> {
+    return this.http.post<RegisterOut>(`${this.baseUrl}/signup`, dataRegister)
   }
 
 }

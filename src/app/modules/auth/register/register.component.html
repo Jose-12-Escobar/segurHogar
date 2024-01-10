@@ -1,4 +1,5 @@
 <div class="container">
+  <p-toast></p-toast>
   <div class="row justify-content-center padding-top-bottom">
     <div class="col-xl-10 col-lg-12 col-md-9">
       <div class="card border-0 shadow-lg my-5">
@@ -8,7 +9,7 @@
             <div class="col-lg-6">
               <div class="p-5">
                 <div class="text-center">
-                  <h4 class=" text-dark mb-4 pb-2">Crear una cuenta!</h4>
+                  <h4 class=" text-dark mb-3 pb-2">Crear una cuenta!</h4>
                 </div>
 
                 <form class="user" [formGroup]="formGroupRegister" (submit)="register()">
@@ -33,6 +34,14 @@
                   </div>
 
                   <div class="">
+                    <span class="p-float-label">
+                      <input pInputText type="email" formControlName="username" id="username" class="form-control-user" />
+                      <label htmlFor="username">Nombre de usuario</label>
+                    </span>
+                    <small *ngIf="noEsValido('username')">{{ getMensaje('username') }}</small>
+                  </div>
+
+                  <div class="padding-top">
                     <span class="p-float-label">
                       <input pInputText type="email" formControlName="email" id="email" class="form-control-user" />
                       <label htmlFor="email">Dirección email ...</label>
@@ -71,10 +80,7 @@
                   </div>
                 </form>
                 <hr>
-                <div class="text-center">
 
-                  <a routerLink="/auth/forgotPass" class="small">¿Has olvidado tu contraseña?</a>
-                </div>
                 <div class="text-center">
                   <a class="small" routerLink="/auth/login">¿Ya tienes una cuenta? Iniciar sesión!</a>
 

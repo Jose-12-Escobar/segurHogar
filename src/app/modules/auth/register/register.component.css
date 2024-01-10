@@ -2,7 +2,7 @@
 
 .padding-top-bottom {
 
-  padding: 11rem 0 12rem 0;
+  padding: 9rem 0 12rem 0;
 }
 
 .bg-register-image {
@@ -37,6 +37,10 @@ form.user .btn-register {
 
 .padding-div {
   padding: 1.5rem 0 1.5rem 0;
+}
+
+.padding-top {
+  padding-top: 1.5rem;
 }
 
 @media screen and (max-width: 992px) {

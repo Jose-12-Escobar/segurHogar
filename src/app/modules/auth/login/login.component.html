@@ -13,16 +13,31 @@
                   <h4 class=" text-dark mb-4">Iniciar sesión!</h4>
                 </div>
                 <form class="user" [formGroup]="formGroupLogin" (submit)="login()">
-                  <div class=" mb-5">
+
+                  <p class="fs-6 text-center cursor-pointer mb-4"><span (click)="isEmail()" [ngClass]="{ 'text-primary' : emailOrUsername }">correo
+                    electrónico</span> / <span (click)="isUsername()" [ngClass]="{ 'text-primary' : !emailOrUsername }">nombre de
+                    usuario</span></p>
+
+                  <div *ngIf="emailOrUsername" class=" mb-5">
                     <span class="p-float-label">
                       <input pInputText id="email" formControlName="email" class="form-control-user" />
-                      <label htmlFor="email">Email</label>
+                      <label htmlFor="email">Correo electrónico</label>
                     </span>
                     <small *ngIf="noEsValido('email')">{{ getMensaje('email') }}</small>
                   </div>
+
+                  <div *ngIf="!emailOrUsername" class=" mb-5">
+                    <span class="p-float-label">
+                      <input pInputText id="username" formControlName="username" class="form-control-user" />
+                      <label htmlFor="email">Nomber de usuario</label>
+                    </span>
+                    <small *ngIf="noEsValido('username')">{{ getMensaje('username') }}</small>
+                  </div>
+
                   <div class="">
                     <span class="p-float-label">
-                      <input pInputText type="password" id="pass" formControlName="password" class="form-control-user" />
+                      <input pInputText type="password" id="pass" formControlName="password"
+                        class="form-control-user" />
 
                       <label htmlFor="pass">Contraseña</label>
 

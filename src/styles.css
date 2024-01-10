@@ -46,3 +46,8 @@ thead tr th{
   background-color:  rgb(255, 113, 74);
   padding: 0.5rem 1rem;
 }
+
+small {
+ color:   #e24c4c
+ ;
+}

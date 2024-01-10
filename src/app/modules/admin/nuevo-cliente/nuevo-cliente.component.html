@@ -15,7 +15,7 @@
               <input pInputText id="nombre" formControlName="nombre"/>
               <label htmlFor="nombre">Nombre</label>
             </span>
-            <small  *ngIf="noEsValido('nombre')">{{ getMensaje('nombre') }}</small>
+            <small *ngIf="noEsValido('nombre')">{{ getMensaje('nombre') }}</small>
           </div>
 
           <div class="lg:col-4 md:col-12 py-4">
