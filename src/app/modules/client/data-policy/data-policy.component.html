@@ -1,0 +1,119 @@
+<div class="container-fluid">
+  <div class="p-fluid grid">
+    <p-card class="col-12">
+      <div *ngIf="!showTable" class="messagg grid">
+        <p class="col-12">Aún no hay polizas cotratadas.<br>
+          Si desea contratr una poliza puede contactar con los gestores en los siguientes números.</p>
+        <p class="col-12">Luna Rodriguez<i class="px-5 text-primary bi bi-telephone-forward"> +34(123)-456-7890</i>
+          <br>
+          José Escobar<i class="px-5 text-primary bi bi-telephone-forward"> +34(123)-456-7890</i>
+        </p>
+      </div>
+      <div *ngIf="showTable">
+        <div class="lg:col-12">
+          <p class="fs-3 text-uppercase">Mis <span class="text-orange">polizas</span> </p>
+        </div>
+        <p-table [value]="policies" [tableStyle]="{ 'min-width': '50rem' }">
+          <ng-template pTemplate="header">
+            <tr>
+              <th style="width:10%">Nº</th>
+              <th style="width:12%">Fecha inicio</th>
+              <th style="width:12%">Fecha fin</th>
+              <th style="width:12%">Estado</th>
+              <th style="width:12%">Modalidad</th>
+              <th style="width:10%">Prima</th>
+              <th style="width:20%">Nº Cuenta</th>
+              <th style="width:10%; text-align: center;">Ver riesgo</th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-policy>
+            <tr>
+              <td>{{ policy.nuPoliza }}</td>
+              <td>{{ policy.feInicio }}</td>
+              <td>{{ policy.feVencimiento }}</td>
+              <td>{{ policy.idSituacionPoliza.descripcion }}</td>
+              <td>{{ policy.idModalidad.descripcion }}</td>
+              <td>{{ policy.prima }},00 €</td>
+              <td>{{ policy.nuCuenta }}</td>
+              <td style="text-align: center;" (click)="showRisktInformation(policy.riesgos[0], policy.nuPoliza)"><span
+                  class="bi bi-eye-fill fs-3" pTooltip="Detalles del riesgo" tooltipPosition="left"
+                  style="color: blue"></span>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+    </p-card>
+
+    <p-card *ngIf="showTable" class="col-12">
+      <form [formGroup]="formGroupRisk">
+        <div class="grid">
+          <div class="lg:col-3 md:col-9">
+            <p class="fs-6 text-uppercase">Datos del riesgo asociado a la poliza</p>
+          </div>
+          <div class="lg:col-1 md:col-2 text-center">
+            <p *ngIf="numPoliza" class=" cuadroPoliza">{{ numPoliza }}</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="tipoCalle" id="tipoCalle" />
+              <label htmlFor="tipoCalle">Tipo de calle</label>
+            </span>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="noCalle" id="noCalle" />
+              <label htmlFor="noCalle">Nombre</label>
+            </span>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="numero" id="numero" />
+              <label htmlFor="numero">Número</label>
+            </span>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="piso" id="piso" />
+              <label htmlFor="piso">Piso</label>
+            </span>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="puerta" id="puerta" />
+              <label htmlFor="puerta">Puerta</label>
+            </span>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="coPostal" id="coPostal" />
+              <label htmlFor="coPostal">Código postal</label>
+            </span>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="localidad" id="localidad" />
+              <label htmlFor="localidad">Localidad</label>
+            </span>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="provincia" id="provincia" />
+              <label htmlFor="provincia">Provincia</label>
+            </span>
+          </div>
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>

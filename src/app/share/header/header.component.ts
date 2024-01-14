@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { HeaderService } from 'src/app/Services/header.service';
 import { SidebarService } from 'src/app/Services/sidebar.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 
 @Component({
@@ -13,9 +14,12 @@ export class HeaderComponent implements OnInit {
 
   scroll!: boolean;
   show:boolean = false;
-  inAdmin : boolean = false;
+  inAdminOrClient : boolean = false;
 
-  constructor( private _showHD: HeaderService, private _router: Router, public _showSB: SidebarService) {
+  constructor(private _showHD: HeaderService,
+              private _router: Router,
+              public _showSB: SidebarService,
+              public _authService: AuthService,) {
     this._showHD.showHeader.subscribe( res => { this.scroll = res});
   }
 
@@ -29,14 +33,15 @@ export class HeaderComponent implements OnInit {
         const splitPath = this._router.url.split('/');
         if (splitPath[1] != "home") {
           this._showHD.changeShowHeader(true)
-          if (splitPath[1] === "admin") {
-            this.inAdmin = true;
-          }else{
-            this.inAdmin = false;
+          if (splitPath[1] === "admin" || splitPath[1] === "client") {
+            this.inAdminOrClient = true;
+          }
+          else{
+            this.inAdminOrClient = false;
           }
         }else{
           this._showHD.changeShowHeader(false);
-          this.inAdmin = false;
+          this.inAdminOrClient = false;
         }
       }
     });
@@ -45,4 +50,11 @@ export class HeaderComponent implements OnInit {
   hiddenSidebar() {
     this._showSB.changeShowSidebar(!this._showSB.showSidebar.value);
   }
+
+  logout(){
+    localStorage.removeItem('role');
+    localStorage.removeItem('dni');
+    this._router.navigate(['/auth/login'])
+  }
+
 }

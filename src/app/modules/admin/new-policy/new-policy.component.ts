@@ -147,6 +147,7 @@ export class NewPolicyComponent implements OnInit {
         (res) => {
            this.client = res;
            this.formGroupNewPolicy.enable();
+           this.formGroupNewPolicy.get('fe_finPoliza')?.disable();
            },
         () => {
           this.formGroupSearch.get(campo)?.setErrors({ 'documentoInvalido': true })
@@ -235,7 +236,17 @@ export class NewPolicyComponent implements OnInit {
     }
   }
 
+  setDateFechaFin() {
+    if (this.formGroupNewPolicy.controls['fe_inicioPoliza'].valid) {
+      const fechaInicio = new Date(this.formGroupNewPolicy.get('fe_inicioPoliza')?.value)
+      const fechaFin = new Date(fechaInicio.setFullYear(fechaInicio.getFullYear()+1))
+     this.formGroupNewPolicy.controls['fe_finPoliza'].setValue(fechaFin)
+
+    }
+  }
+
   clearForm() {
     this.formGroupNewPolicy.reset();
   }
+
 }

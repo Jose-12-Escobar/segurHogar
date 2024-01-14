@@ -72,17 +72,15 @@
       <form [formGroup]="formGroupModifyPolicy" (submit)="guardarDatos()" >
 
         <div class="grid">
-          <p class="lg:col-12 fs-6 text-uppercase">Datos de la poliza</p>
-          <div class="lg:col-3 md:col-12 py-4">
-            <span class="p-float-label">
-              <input formControlName="nuPoliza" pInputText id="numPoliza" />
-              <label htmlFor="numPoliza">Nº Poliza</label>
-            </span>
-            <small *ngIf="isValid('nuPoliza',formGroupModifyPolicy)">{{ getMensaje('nuPoliza',formGroupModifyPolicy) }}</small>
+          <div class="lg:col-2 md:col-5">
+            <p class="fs-6 text-uppercase">Datos de la poliza</p>
+          </div>
+          <div class="lg:col-1 md:col-2 text-center">
+            <p *ngIf="numPolicy" class=" cuadroPoliza">{{ numPolicy }}</p>
           </div>
         </div>
 
-      <div class="grid">
+      <div class="grid mt-2">
         <div class="lg:col-4 md:col-12 py-4">
           <span class="p-float-label">
             <p-calendar formControlName="fe_inicioPoliza" id="fechaInicio" [readonlyInput]="true" [showIcon]="true"

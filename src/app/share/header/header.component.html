@@ -8,7 +8,7 @@
         <a routerLink="/home" id="name" class="navbar-brand">SegurHogar</a>
       </div>
 
-      <div *ngIf="inAdmin" id="menuSidebar" class="col-lg-4 col-sm-4">
+      <div *ngIf="inAdminOrClient" id="menuSidebar" class="col-lg-4 col-sm-4">
         <button (click)="hiddenSidebar()" class="header-menu-button">
           <i class="pi pi-bars" style="font-size: 1.5rem"></i>
         </button>
@@ -24,8 +24,10 @@
 
         <div class="col-lg-4 collapse navbar-collapse pe-5 text-center" [class.show]="show" id="menu">
           <ul class="navbar-nav ms-auto my-2 my-lg-0">
-            <li class="nav-item"><a routerLink="/auth/login" class="nav-link" href="#">Login</a></li>
-            <li class="nav-item"><a routerLink="/auth/register" class="nav-link" href="#">Register</a></li>
+            <li *ngIf="!_authService.isLogged()" class="nav-item"><a routerLink="/auth/login" class="nav-link" href="#">Iniciar sesión</a></li>
+            <li *ngIf="!_authService.isLogged()" class="nav-item"><a routerLink="/auth/register" class="nav-link" href="#">Registrar</a></li>
+            <li *ngIf="_authService.isLogged()" class="nav-item"><a routerLink="/admin/newClient" class="nav-link" href="#">Menú</a></li>
+            <li *ngIf="_authService.isLogged()" (click)="logout()" class="nav-item"><a class="nav-link" href="#">Cerrar sesión</a></li>
           </ul>
         </div>
 

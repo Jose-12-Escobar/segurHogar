@@ -1,0 +1,106 @@
+<div class="container-fluid">
+
+  <div class="p-fluid grid">
+    <p-card class="col-12">
+      <div *ngIf="!showTable" class="messagg grid">
+        <p class="col-12">Aún no hay siniestros reportados.<br>
+          Si desea reportar un siniestro puede contactar con los gestores en los siguientes números.</p>
+        <p class="col-12">Luna Rodriguez<i class="px-5 text-primary bi bi-telephone-forward"> +34(123)-456-7890</i>
+          <br>
+          José Escobar<i class="px-5 text-primary bi bi-telephone-forward"> +34(123)-456-7890</i>
+        </p>
+      </div>
+      <div *ngIf="showTable">
+        <div class="lg:col-12">
+        <p class="fs-3 text-uppercase">Listado de <span class="text-orange">siniestros</span> </p>
+      </div>
+      <p-table #dc [value]="sinistersByClient" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }"
+        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 25]" styleClass="p-datatable-striped  w-100">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="refSiniestro" style="width: 10%;">Ref Siniestro<p-sortIcon
+                field="refSiniestro"></p-sortIcon></th>
+            <th pSortableColumn="idRiesgo" style="width: 8%;">Id Riesgo<p-sortIcon field="idRiesgo"></p-sortIcon></th>
+            <th pSortableColumn="numPoliza" style="width: 8%;">Nº Poliza<p-sortIcon field="numPoliza"></p-sortIcon>
+            </th>
+            <th pSortableColumn="peritado" style="width: 8%;">Peritado <p-sortIcon field="peritado"></p-sortIcon></th>
+            <th pSortableColumn="feSiniestro" style="width: 10%;">Fecha daño<p-sortIcon
+                field="feSiniestro"></p-sortIcon></th>
+            <th pSortableColumn="feInicioReparacion" style="width: 12%;">Fecha inicio rep<p-sortIcon
+                field="feInicioReparacion"></p-sortIcon></th>
+            <th pSortableColumn="feFinReparacion" style="width: 10%;">Fecha fin rep<p-sortIcon
+                field="feFinReparacion"></p-sortIcon></th>
+            <th pSortableColumn="importeSiniestro" style="width: 10%;">Importe<p-sortIcon
+                field="importeSiniestro"></p-sortIcon></th>
+            <th pSortableColumn="idEstado.descripcion" style="width: 10%;">Estado<p-sortIcon
+                field="idEstado.descripcion"></p-sortIcon></th>
+          </tr>
+          <tr>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'refSiniestro', 'contains')"
+                [value]="$any(dc.filters['refSiniestro'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'idRiesgo', 'contains')"
+                [value]="$any(dc.filters['idRiesgo'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'numPoliza', 'contains')"
+                [value]="$any(dc.filters['numPoliza'])?.value">
+            </th>
+            <th>
+              <p-columnFilter type="boolean" field="peritado" [showClearButton]="false"></p-columnFilter>
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'feSiniestro', 'contains')"
+                [value]="$any(dc.filters['feSiniestro'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'feInicioReparacion', 'contains')"
+                [value]="$any(dc.filters['feInicioReparacion'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'feFinReparacion', 'contains')"
+                [value]="$any(dc.filters['feFinReparacion'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'importeSiniestro', 'contains')"
+                [value]="$any(dc.filters['importeSiniestro'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'idEstado.descripcion', 'contains')"
+                [value]="$any(dc.filters['idEstado.descripcion'])?.value">
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sinister>
+          <tr>
+            <td style="text-align: center;">{{ sinister.refSiniestro }}</td>
+            <td style="text-align: center;">{{ sinister.idRiesgo }}</td>
+            <td style="text-align: center;">{{ sinister.numPoliza }}</td>
+            <td style="text-align: center;"><i class="fs-4 bi"
+                [ngClass]="{ 'bi-check2-circle text-success': sinister.peritado, 'bi-x-circle text-danger': !sinister.peritado }"></i>
+            </td>
+            <td style="text-align: center;">{{ sinister.feSiniestro }}</td>
+            <td style="text-align: center;">{{ sinister.feInicioReparacion }}</td>
+            <td style="text-align: center;">{{ sinister.feFinReparacion }}</td>
+            <td style="text-align: center;">
+              <div *ngIf="sinister.importeSiniestro">{{ sinister.importeSiniestro }} €</div>
+            </td>
+            <td style="text-align: center;">{{ sinister.idEstado.descripcion }}</td>
+          </tr>
+        </ng-template>
+      </p-table>
+      </div>
+
+    </p-card>
+  </div>
+</div>

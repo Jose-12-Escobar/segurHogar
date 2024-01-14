@@ -11,7 +11,7 @@ export interface Risk {
   coPostal?: string;
   localidad?: string;
   provincia?: string;
-  siniestros ?: Sinister;
+  siniestros ?: Sinister[];
   nuPoliza ?: string;
 }
 

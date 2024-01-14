@@ -12,8 +12,10 @@ import { ModifyRiskComponent } from './modify-risk/modify-risk.component';
 import { SearchClientComponent } from './search-client/search-client.component';
 import { ListSinisterComponent } from './list-sinister/list-sinister.component';
 import { ModifySinisterComponent } from './modify-sinister/modify-sinister.component';
+import { PageHomeMenuComponentAdmin } from './page-home-menu/page-home-menu.component';
 
 const routes: Routes = [
+  { path: 'homeMenu', component: PageHomeMenuComponentAdmin },
   { path: 'newClient', component: NuevoClienteComponent },
   { path: 'newPolicy', component: NewPolicyComponent },
   { path: 'newSinister', component: NewSinisterComponent },

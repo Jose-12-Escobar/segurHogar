@@ -122,7 +122,6 @@ export class ModifyRiskComponent implements OnInit {
           this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Riesgo modificada con exito' });
           this.formGroupModifyRisk.reset();
           this.formGroupModifyRisk.disable();
-          console.log('dentro de guradar: ', res)
         },
         () => {
           this._messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al modificar el riesgo' });

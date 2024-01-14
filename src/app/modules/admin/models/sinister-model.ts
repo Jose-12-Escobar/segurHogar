@@ -9,6 +9,7 @@ export interface Sinister {
   idEstado?: IdEstado;
   description?: string;
   refSiniestro?: string;
+  numPoliza ?: string;
 }
 
 export interface IdEstado {

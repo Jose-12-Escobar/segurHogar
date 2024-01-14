@@ -59,9 +59,6 @@ export class NewSinisterComponent implements OnInit {
       fe_dano: [null, [Validators.required, ValidatorDate.DateTopCurrent]],
       state: [null, [Validators.required]],
       descripcion: [null, [Validators.maxLength(255)]],
-      //fe_inicio_rep: [null, [Validators.required, this.dateStartOlderDamage.bind(this)]],
-      //coste: [null, [Validators.required]],
-      //peritado: [null, [Validators.required]],
     });
   }
   searchRisk() {
@@ -212,7 +209,6 @@ export class NewSinisterComponent implements OnInit {
         "description": this.formGroupNewSinister.get('descripcion')?.value,
         "refSiniestro": this.formGroupNewSinister.get('ref_sinister')?.value
       }
-console.log(this.sinister)
       this._sinisterService.postNewSinister(this.sinister).subscribe({
         next: () => {
           this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Siniestro creado con exito' });

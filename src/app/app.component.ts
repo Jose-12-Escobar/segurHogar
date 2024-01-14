@@ -13,9 +13,9 @@ export class AppComponent implements OnInit {
   title = 'SegurHogar';
   public show !: boolean;
   inAdmin : boolean = false;
+  inClient : boolean = false;
 
    constructor( public _show: SidebarService, private _router: Router, private renderer : Renderer2  ){
-
     this._show.showSidebar.subscribe(res => { this.show = res});
    }
 
@@ -28,8 +28,14 @@ export class AppComponent implements OnInit {
         if(splitPath[1] === "admin"){
           this.inAdmin = true;
           this.renderer.addClass(document.body, 'bgBody');
-        }else{
+        }
+        else if(splitPath[1] === "client"){
+          this.inClient = true;
+          this.renderer.addClass(document.body, 'bgBody');
+        }
+        else{
           this.inAdmin = false;
+          this.inClient = false;
           this.renderer.removeClass(document.body, 'bgBody');
         }
       }

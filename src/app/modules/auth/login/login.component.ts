@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SidebarService } from 'src/app/Services/sidebar.service';
 import { AuthService } from '../services/auth.service';
 import { LoginIn } from '../models/login-model';
 import { MessageService } from 'primeng/api';
+import { LocalStorageService } from '../../admin/services/local-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -15,14 +16,15 @@ export class LoginComponent implements OnInit {
 
   formGroupLogin !: FormGroup;
   dataClient !: LoginIn;
-  emailOrUsername: boolean = true;
-  fcnEmailOrUsername : string = 'email';
+  emailOrDocumentoId: boolean = true;
+  fcnEmailOrDocumentoId: string = 'email';
 
   constructor(public _showSB: SidebarService,
     private _fb: FormBuilder,
     private _router: Router,
-    private _authService: AuthService,
-    private _messageService: MessageService) {
+    private _auth: AuthService,
+    private _message: MessageService,
+    private _localStorage: LocalStorageService) {
     _showSB.changeShowSidebar(false)
   }
 
@@ -33,7 +35,7 @@ export class LoginComponent implements OnInit {
   initFormLogin() {
     this.formGroupLogin = this._fb.group({
       email: [null, [Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")]],
-      username:[null, [Validators.minLength(3), Validators.maxLength(10)]],
+      documentoId: [null, [Validators.minLength(9), Validators.maxLength(9)]],
       password: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(16)]]
     });
   }
@@ -52,12 +54,12 @@ export class LoginComponent implements OnInit {
     else if (error?.['minlength']) {
       msg = {
         password: "El mínimo de caracteres válido es 8",
-        username: "El mínimo de caracteres válido es 3"
+        documentoId: "El mínimo de caracteres válido es 9"
       }[campo] || '';
-    }else if (error?.['maxlength']) {
+    } else if (error?.['maxlength']) {
       msg = {
         password: "El máximo de caracteres válido es 16",
-        username: "El máximo de caracteres válido es 10"
+        documentoId: "El máximo de caracteres válido es 9"
       }[campo] || '';
     }
     else if (error?.['pattern']) {
@@ -73,31 +75,39 @@ export class LoginComponent implements OnInit {
     } else {
 
       this.dataClient = {
-        "usernameOrEmail": this.emailOrUsername ? this.formGroupLogin.get('email')?.value : this.formGroupLogin.get('username')?.value,
+        "usernameOrEmail": this.emailOrDocumentoId ? this.formGroupLogin.get('email')?.value : this.formGroupLogin.get('documentoId')?.value,
         "password": this.formGroupLogin.get('password')?.value,
       }
-      console.log(this.dataClient)
-      this._authService.login(this.dataClient).subscribe({
+      this._auth.login(this.dataClient).subscribe({
         next: (res) => {
-          console.log(res)
-          this._router.navigate(['/admin/newClient']);
+          this._localStorage.setItem('role', res.roles);
+          if (res.roles === 'ROLE_ADMIN') {
+            this._router.navigate(['/admin/homeMenu'])
+          }
+          else if (res.roles === 'ROLE_USER') {
+            this._localStorage.setItem('dni', res.username)
+            this._router.navigate(['/client/homeMenu'])
+          }
+          else{
+            this._message.add({ severity: 'error', summary: 'Error', detail: 'A ocurrido un error al iniciar sesión' });;
+          }
         },
         error: () => {
-          this._messageService.add({ severity: 'error', summary: 'Credenciales erróneas', detail: 'No existe ninguna cliente con los datos introducidos' });
+          this._message.add({ severity: 'error', summary: 'Credenciales erróneas', detail: 'No existe ninguna cliente con los datos introducidos' });
         }
       })
     }
   }
 
   isEmail() {
-    this.emailOrUsername = true;
-    this.fcnEmailOrUsername = 'email';
-    this.formGroupLogin.get('username')?.reset();
+    this.emailOrDocumentoId = true;
+    this.fcnEmailOrDocumentoId = 'email';
+    this.formGroupLogin.get('documentoId')?.reset();
   }
 
   isUsername() {
-    this.emailOrUsername = false;
-    this.fcnEmailOrUsername = 'username';
+    this.emailOrDocumentoId = false;
+    this.fcnEmailOrDocumentoId = 'documentoId';
     this.formGroupLogin.get('email')?.reset();
   }
 

@@ -6,7 +6,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class SidebarService {
 
-  public showSidebar : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
+  public showSidebar : BehaviorSubject<boolean> = new BehaviorSubject<boolean>(true);
 
   public changeShowSidebar(show : boolean) {
     this.showSidebar.next(show);

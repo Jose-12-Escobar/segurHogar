@@ -29,6 +29,7 @@ export class ModifyPolicyComponent implements OnInit {
   showTable: boolean = false;
   state !: { state: string, key: number }[];
   modalidad !: { tipo: string, key: number }[];
+  numPolicy !: string;
 
   constructor(public _show: SidebarService,
     private _fb: FormBuilder,
@@ -78,7 +79,6 @@ export class ModifyPolicyComponent implements OnInit {
 
   initFormModifyPolicy() {
     this.formGroupModifyPolicy = this._fb.group({
-      nuPoliza: [null],
       fe_inicioPoliza: [null, [Validators.required, ValidatorDate.DateTopCurrent]],
       fe_finPoliza: [null, [Validators.required, this.dateEndOlderStart.bind(this)]],
       estado: [null, [Validators.required]],
@@ -95,8 +95,8 @@ export class ModifyPolicyComponent implements OnInit {
   showPolicyInformation(policy: Policy) {
     this.idClient = policy.idCliente;
     this.policyModify = policy;
+    this.numPolicy = policy.nuPoliza
 
-    this.formGroupModifyPolicy.controls['nuPoliza'].setValue(policy.nuPoliza);
     this.formGroupModifyPolicy.controls['fe_inicioPoliza'].setValue(new Date(policy.feInicio));
     this.formGroupModifyPolicy.controls['fe_finPoliza'].setValue(new Date(policy.feVencimiento));
     this.formGroupModifyPolicy.controls['estado'].setValue({ key: policy.idSituacionPoliza?.idEstado, state: policy.idSituacionPoliza?.descripcion });

@@ -7,7 +7,6 @@ import { Client } from '../models/client-model';
 export class LocalStorageService {
 
   index !: string;
-  client !: Client[];
 
   constructor() { }
 
@@ -26,17 +25,4 @@ export class LocalStorageService {
     return null;
   }
 
-  getItemId(key: string): Client[] | any {
-
-    let value = localStorage.getItem('clientes')
-    if (value) {
-      const clientes : Client[] = JSON.parse(value)
-      this.client = clientes.filter((cliente) =>  cliente.documento === key )
-      if (this.client[0]) {
-        return this.client;
-      }else{
-        return null;
-      }
-    }
-  }
 }

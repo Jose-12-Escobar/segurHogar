@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { ApiService } from 'src/app/Services/api.service';
 import { LoginIn, LoginOut } from '../models/login-model';
 import { RegisterIn, RegisterOut } from '../models/register-model';
+import { LocalStorageService } from '../../admin/services/local-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,9 @@ export class AuthService {
 
   private baseUrl !: string;
 
-  constructor(private http: HttpClient, private _baseUrl: ApiService) {
+  constructor(private http: HttpClient,
+              private _baseUrl: ApiService,
+              private _localStorageService: LocalStorageService) {
     this.baseUrl = `${this._baseUrl.getBaseUrl()}`;
   }
 
@@ -24,4 +27,7 @@ export class AuthService {
     return this.http.post<RegisterOut>(`${this.baseUrl}/signup`, dataRegister)
   }
 
+  isLogged(): boolean {
+    return this._localStorageService.getItem('role') ? true : false;
+  }
 }

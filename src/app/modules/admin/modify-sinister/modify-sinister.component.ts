@@ -19,6 +19,7 @@ export class ModifySinisterComponent implements OnInit {
   sinisterModify !: Sinister;
   sinister !: Sinister;
   idSinisterLocalStorage !: number;
+  refSinister !: string | undefined;
   state: IdEstado[] = [
     { "idEstado": 1, "descripcion": 'Tramitado' },
     { "idEstado": 2, "descripcion": 'En proceso' },
@@ -59,7 +60,7 @@ export class ModifySinisterComponent implements OnInit {
 
   initFormModifySinister() {
     this.formGroupModifySinister = this._fb.group({
-      ref_sinister: [null, [Validators.required]],
+
       fe_siniestro: [null, [Validators.required, ValidatorDate.DateTopCurrent]],
       state: [null, [Validators.required]],
       descripcion: [null, [Validators.maxLength(255)]],
@@ -128,7 +129,8 @@ export class ModifySinisterComponent implements OnInit {
 
   showRiskInformation(sinister: Sinister) {
 
-    this.formGroupModifySinister.controls['ref_sinister'].setValue(sinister.refSiniestro);
+    this.refSinister = sinister.refSiniestro
+
     this.formGroupModifySinister.controls['fe_siniestro'].setValue(new Date(sinister.feSiniestro));
     this.formGroupModifySinister.controls['state'].setValue({ idEstado: sinister.idEstado?.idEstado, descripcion: sinister.idEstado?.descripcion });
     this.formGroupModifySinister.controls['descripcion'].setValue(sinister.description);
@@ -148,14 +150,12 @@ export class ModifySinisterComponent implements OnInit {
 
     this.formGroupModifySinister.enable();
     this.formGroupModifySinister.get('fe_siniestro')?.disable();
-    this.formGroupModifySinister.get('ref_sinister')?.disable();
   }
 
   guardarDatos() {
     if (this.formGroupModifySinister.invalid) {
       this.formGroupModifySinister.markAllAsTouched();
     } else {
-      console.log(this.formGroupModifySinister.get('peritado'))
       this.sinister = {
           "idSiniestro": this.sinisterModify.idSiniestro,
           "idRiesgo": this.sinisterModify.idRiesgo,
@@ -169,7 +169,6 @@ export class ModifySinisterComponent implements OnInit {
           "refSiniestro": this.sinisterModify.refSiniestro
       }
 
-      console.log(this.sinister)
      this._sinisterService.updateSinister(this.sinister).subscribe(
         (res) => {
           this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Siniestro modificado con exito' });

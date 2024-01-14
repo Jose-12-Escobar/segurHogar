@@ -33,19 +33,11 @@
       <form class="col-12" [formGroup]="formGroupModifySinister" (submit)="guardarDatos()">
 
         <div class="grid">
-          <div class="lg:col-12">
+          <div class="lg:col-2 md:col-5">
             <p class="fs-6 text-uppercase">Datos del siniestro</p>
           </div>
-        </div>
-
-        <div class="grid">
-          <div class="lg:col-2 md:col-6 py-4">
-            <span class="p-float-label">
-              <input pInputText id="refSiniestro" formControlName="ref_sinister" />
-              <label for="refSiniestro">Referencia siniestro</label>
-            </span>
-            <small *ngIf="noEsValido('ref_sinister',formGroupModifySinister)">{{
-              getMensaje('ref_sinister',formGroupModifySinister) }}</small>
+          <div class="lg:col-1 md:col-2 text-center">
+            <p *ngIf="refSinister" class=" cuadroPoliza">{{ refSinister }}</p>
           </div>
         </div>
 

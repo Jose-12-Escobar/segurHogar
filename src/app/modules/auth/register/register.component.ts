@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MessageService } from 'primeng/api';
 import { RegisterIn } from '../models/register-model';
+import { ValidatorDocuemntId } from '../../admin/validator/validatorDI';
 
 @Component({
   selector: 'app-register',
@@ -33,7 +34,7 @@ export class RegisterComponent implements OnInit {
     this.formGroupRegister = this._fb.group({
       nombre: [null, [Validators.required, Validators.minLength(3), Validators.maxLength(30)]],
       apellidos: [null, [Validators.required,  Validators.minLength(3), Validators.maxLength(40)]],
-      username:[null, [Validators.required, Validators.minLength(3), Validators.maxLength(10)]],
+      documentoId:[null, [Validators.required, ValidatorDocuemntId.validDucumentId, Validators.maxLength(9)]],
       email: [null, [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$")]],
       password: [null, [Validators.required, Validators.minLength(8), Validators.maxLength(16)]],
       confirmPassword: [null, [Validators.required]]
@@ -69,6 +70,14 @@ export class RegisterComponent implements OnInit {
         password:"El máximo de caracteres válido es 16",
         username:"El máximo de caracteres válido es 10"
       } [campo]|| '';
+    }else if(error?.['dniInvalid']) {
+      msg = 'El DNI no es valido.'
+    }
+    else if(error?.['documentInvalid']) {
+      msg = 'Documento de identificacion invalido'
+    }
+    else if(error?.['nieInvalid']) {
+      msg = 'El NIE no es valido'
     }
     else if(error?.['pattern']){
       msg= 'No cumple el patron estandar';
@@ -85,11 +94,10 @@ export class RegisterComponent implements OnInit {
           this.dataClient = {
             "name": this.formGroupRegister.get('nombre')?.value,
             "lastname": this.formGroupRegister.get('apellidos')?.value,
-            "username": this.formGroupRegister.get('username')?.value,
+            "username": this.formGroupRegister.get('documentoId')?.value,
             "email": this.formGroupRegister.get('email')?.value,
             "password": this.formGroupRegister.get('password')?.value
           }
-          console.log(this.dataClient)
           this._authService.register(this.dataClient).subscribe({
             next: (res) => {
               console.log(res)

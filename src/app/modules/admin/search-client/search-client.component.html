@@ -187,7 +187,7 @@
               <td>{{ policy.idModalidad.descripcion }}</td>
               <td>{{ policy.prima }},00 €</td>
               <td>{{ policy.nuCuenta }}</td>
-              <td (click)="showRisktInformation(policy.riesgos[0])"><span class="bi bi-info-circle-fill fs-3" pTooltip="Detalles del riesgo" tooltipPosition="left"
+              <td (click)="showRisktInformation(policy.riesgos[0], policy.nuPoliza)"><span class="bi bi-info-circle-fill fs-3" pTooltip="Detalles del riesgo" tooltipPosition="left"
                   style="color: blue"></span>
               </td>
             </tr>
@@ -199,8 +199,11 @@
     <p-card class="col-12">
       <form [formGroup]="formGroupRisk">
         <div class="grid">
-          <div class="lg:col-12">
-            <p class="fs-6 text-uppercase">Datos del riesgo asociado a la poliza</p>
+          <div class="lg:col-2 md:col-5">
+            <p class="fs-6 text-uppercase">Datos de la poliza</p>
+          </div>
+          <div class="lg:col-1 md:col-2 text-center">
+            <p *ngIf="numPolicy" class=" cuadroPoliza">{{ numPolicy }}</p>
           </div>
         </div>
 

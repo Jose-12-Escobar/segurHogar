@@ -1,0 +1,141 @@
+<div class="container-fluid">
+  <div class="p-fluid grid">
+
+    <div *ngIf="show">
+      <form class="col-12" [formGroup]="formGroupClient">
+        <p-card>
+          <div class="grid">
+            <div class="lg:col-12">
+              <p class="fs-3 text-uppercase">Mis datos<span class="text-orange"> de cliente</span> </p>
+            </div>
+            <div class="lg:col-12">
+              <p class="fs-6 text-uppercase">Datos personales</p>
+            </div>
+            <div class="lg:col-3 md:col-12 py-4">
+              <span class="p-float-label">
+                <input pInputText id="id_documento" formControlName="id_documento" />
+                <label htmlFor="id_documento">Documento ID</label>
+              </span>
+            </div>
+            <div class="lg:col-3 md:col-12 py-4">
+              <span class="p-float-label">
+                <input pInputText id="nombre" formControlName="nombre" />
+                <label htmlFor="nombre">Nombre</label>
+              </span>
+            </div>
+
+            <div class="lg:col-3 md:col-12 py-4">
+              <span class="p-float-label">
+                <input pInputText id="segundoApellido" formControlName="apellidoUno" />
+                <label htmlFor="segundoApellido">Primer Apellido</label>
+              </span>
+            </div>
+
+            <div class="lg:col-3 md:col-12 py-4">
+              <span class="p-float-label">
+                <input pInputText id="primerApellido" formControlName="apellidoDos" />
+                <label htmlFor="primerApellido">Segundo Apellido</label>
+              </span>
+            </div>
+
+          </div>
+
+          <p class="fs-6 text-uppercase mt-4">Datos de contacto</p>
+
+          <div class="grid">
+
+            <div class="col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="email" formControlName="mail" />
+                <label htmlFor="email">Email</label>
+              </span>
+            </div>
+
+            <div class="col-6 py-4">
+              <span class="p-float-label">
+                <p-inputMask id="telefono" mask="999-999-999" slotChar="###-###-###"
+                  formControlName="telefono"></p-inputMask>
+                <label htmlFor="telefono">Teléfono</label>
+              </span>
+            </div>
+          </div>
+
+          <p class="fs-6 text-uppercase mt-4">Dirección de contacto</p>
+          <div class="grid">
+
+            <div class="lg:col-3 md:col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="calle" formControlName="calle" />
+                <label for="calle">Calle</label>
+              </span>
+            </div>
+
+            <div class="lg:col-2 md:col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="numero" formControlName="numero" pKeyFilter="int" />
+                <label for="numero">Número</label>
+              </span>
+            </div>
+
+            <div class="lg:col-2 md:col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="piso" formControlName="piso" />
+                <label for="piso">Piso</label>
+              </span>
+            </div>
+
+            <div class="lg:col-2 md:col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="cp" formControlName="codigoPostal" pKeyFilter="int" />
+                <label for="cp">Código Postal</label>
+              </span>
+            </div>
+
+            <div class="lg:col-3 md:col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="localidad" formControlName="localidad" />
+                <label for="localidad">Localidad</label>
+              </span>
+            </div>
+
+            <div class="lg:col-3 md:col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="tipoCalle" formControlName="tipoCalle" />
+                <label for="tipoCalle">Tipo de calle</label>
+              </span>
+            </div>
+
+            <div class="lg:col-3 md:col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="puerta" formControlName="puerta" />
+                <label for="puerta">Puerta</label>
+              </span>
+            </div>
+
+            <div class="lg:col-3 md:col-6 py-4">
+              <span class="p-float-label">
+                <input pInputText id="provincia" formControlName="provincia" />
+                <label for="provincia">Provincia</label>
+              </span>
+            </div>
+
+          </div>
+
+        </p-card>
+      </form>
+    </div>
+    <div *ngIf="!show" class="col-12">
+      <p-card >
+        <div class="messagg grid">
+          <p class="col-12">Aún no hay polizas cotratadas.<br>
+            Si desea contratr una poliza puede contactar con los gestores en los siguientes números.</p>
+          <p class="col-12">Luna Rodriguez<i class="px-5 text-primary bi bi-telephone-forward"> +34(123)-456-7890</i>
+            <br>
+            José Escobar<i class="px-5 text-primary bi bi-telephone-forward"> +34(123)-456-7890</i>
+          </p>
+        </div>
+      </p-card>
+    </div>
+
+  </div>
+</div>

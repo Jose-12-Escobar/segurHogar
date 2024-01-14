@@ -21,6 +21,7 @@ export class SearchClientComponent implements OnInit {
   client !: Client;
   policies !: Policy[];
   showTable : boolean = false;
+  numPolicy !: string;
 
   constructor(public _show: SidebarService,
               private _fb: FormBuilder,
@@ -168,7 +169,9 @@ export class SearchClientComponent implements OnInit {
     this.formGroupClient.controls['provincia'].setValue(client.provincia);
   }
 
- showRisktInformation( risk: Risk) {
+ showRisktInformation( risk: Risk, numPolicy: string) {
+
+    this.numPolicy = numPolicy;
 
     this.formGroupRisk.controls['tipoCalle'].setValue(risk.tipoCalle);
     this.formGroupRisk.controls['noCalle'].setValue(risk.noCalle);

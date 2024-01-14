@@ -38,7 +38,7 @@
           <div class="grid">
             <div class="lg:col-4 md:col-12 py-4">
               <span class="p-float-label">
-                <p-calendar formControlName="fe_inicioPoliza" id="fechaInicio" [readonlyInput]="true" [showIcon]="true"
+                <p-calendar (ngModelChange)="setDateFechaFin()" formControlName="fe_inicioPoliza" id="fechaInicio" [readonlyInput]="true" [showIcon]="true"
                   dateFormat="yy/mm/dd"></p-calendar>
                 <label for="fechaInicio">Fecha de inicio</label>
               </span>
