@@ -5,6 +5,7 @@ import { ApiService } from 'src/app/Services/api.service';
 import { LoginIn, LoginOut } from '../models/login-model';
 import { RegisterIn, RegisterOut } from '../models/register-model';
 import { LocalStorageService } from '../../admin/services/local-storage.service';
+import { skipApiKey } from '../http.contex';
 
 @Injectable({
   providedIn: 'root'
@@ -20,11 +21,11 @@ export class AuthService {
   }
 
   login(dataLogin: LoginIn): Observable<LoginOut> {
-    return this.http.post<LoginOut>(`${this.baseUrl}/login`, dataLogin)
+    return this.http.post<LoginOut>(`${this.baseUrl}/login`, dataLogin, { context: skipApiKey() })
   }
 
   register(dataRegister: RegisterIn ): Observable<RegisterOut> {
-    return this.http.post<RegisterOut>(`${this.baseUrl}/signup`, dataRegister)
+    return this.http.post<RegisterOut>(`${this.baseUrl}/signup`, dataRegister, { context: skipApiKey() })
   }
 
   isLogged(): boolean {

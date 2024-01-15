@@ -53,7 +53,10 @@
 
                     <div class="col-sm-6 ">
                       <span class="p-float-label">
-                        <input pInputText type="password" formControlName="password" id="pass" class="form-control-user" />
+                        <input pInputText type="{{ passwordClick ? 'password' : 'text'}}" formControlName="password" id="pass" class="form-control-user" />
+                        <span class="toggle-password" (click)="passwordVisibility()" >
+                          <i class="bi " [ngClass]="{'bi-eye': passwordClick, 'bi-eye-slash': !passwordClick }" id="eye-icon"></i>
+                        </span>
                         <label htmlFor="pass">Contraseña</label>
                       </span>
                       <small *ngIf="noEsValido('password')">{{ getMensaje('password') }}</small>
@@ -62,7 +65,6 @@
                     <div class="col-sm-6">
                       <span class="p-float-label">
                         <input pInputText type="password" formControlName="confirmPassword" id="passConfirm" class="form-control-user" />
-
                         <label htmlFor="passConfirm">Repetir contraseña</label>
 
                       </span>

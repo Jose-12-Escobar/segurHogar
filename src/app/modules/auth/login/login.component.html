@@ -35,9 +35,11 @@
 
                   <div class="">
                     <span class="p-float-label">
-                      <input pInputText type="password" id="pass" formControlName="password"
+                      <input pInputText type="{{ passwordClick ? 'password' : 'text'}}" id="pass" formControlName="password"
                         class="form-control-user" />
-
+                        <span class="toggle-password" (click)="passwordVisibility()" >
+                          <i class="bi " [ngClass]="{'bi-eye': passwordClick, 'bi-eye-slash': !passwordClick }" id="eye-icon"></i>
+                        </span>
                       <label htmlFor="pass">Contraseña</label>
 
                     </span>

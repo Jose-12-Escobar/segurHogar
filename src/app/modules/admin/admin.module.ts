@@ -4,12 +4,14 @@ import { CommonModule } from '@angular/common';
 
 import { AdminRoutingModule } from './admin-routing.module';
 import { ListClientComponent } from './list-client/list-client.component';
+import { NuevoClienteComponent } from './nuevo-cliente/nuevo-cliente.component';
 import { ListPolicyComponent } from './list-policy/list-policy.component';
 import { ListSinisterComponent } from './list-sinister/list-sinister.component';
 import { ListRiskComponent } from './list-risk/list-risk.component';
 import { NewSinisterComponent } from './new-sinister/new-sinister.component';
 import { NewPolicyComponent } from './new-policy/new-policy.component';
 import { ModifyPolicyComponent } from './modify-policy/modify-policy.component';
+import { ModifyClientComponent } from './modify-client/modify-client.component';
 import { ModifySinisterComponent } from './modify-sinister/modify-sinister.component';
 import { ModifyRiskComponent } from './modify-risk/modify-risk.component';
 import { SearchClientComponent } from './search-client/search-client.component';
@@ -35,6 +37,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 
 @NgModule({
   declarations: [
+    NuevoClienteComponent,
+    ModifyClientComponent,
     ListClientComponent,
     NewSinisterComponent,
     NewPolicyComponent,
@@ -65,7 +69,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     ConfirmDialogModule,
     InputTextareaModule
   ],
-  providers: [MessageService,
+  providers: [
+    MessageService,
     ConfirmationService],
 })
 export class AdminModule { }

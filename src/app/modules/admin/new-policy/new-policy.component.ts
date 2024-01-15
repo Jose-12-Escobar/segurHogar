@@ -60,7 +60,7 @@ export class NewPolicyComponent implements OnInit {
   }
   initFormNewPolicy() {
     this.formGroupNewPolicy = this._fb.group({
-      fe_inicioPoliza: [null, [Validators.required, ValidatorDate.DateTopCurrent]],
+      fe_inicioPoliza: [null, [Validators.required, ValidatorDate.DateLowerCurrent]],
       fe_finPoliza: [null, [Validators.required, this.dateEndOlderStart.bind(this)]],
       estado: [null, [Validators.required]],
       modalidad: [null, [Validators.required]],
@@ -106,6 +106,9 @@ export class NewPolicyComponent implements OnInit {
     }
     else if (error?.['fechaSuperiorActual']) {
       msg = 'La fecha de inicio no puede ser superior a la fecha actual.'
+    }
+    else if (error?.['fechaInferiorActual']) {
+      msg = 'La fecha de inicio no puede ser inferior a la fecha actual.'
     }
     else if (error?.['dateEndYoungerStart']) {
       msg = 'La fecha de vencimiento no puede ser inferior a la fecha de inicio.'

@@ -79,7 +79,7 @@ export class ModifyPolicyComponent implements OnInit {
 
   initFormModifyPolicy() {
     this.formGroupModifyPolicy = this._fb.group({
-      fe_inicioPoliza: [null, [Validators.required, ValidatorDate.DateTopCurrent]],
+      fe_inicioPoliza: [null, [Validators.required, ValidatorDate.DateLowerCurrent]],
       fe_finPoliza: [null, [Validators.required, this.dateEndOlderStart.bind(this)]],
       estado: [null, [Validators.required]],
       modalidad: [null, [Validators.required]],
@@ -106,6 +106,7 @@ export class ModifyPolicyComponent implements OnInit {
 
     this.formGroupModifyPolicy.enable();
     this.formGroupModifyPolicy.get('nuPoliza')?.disable();
+    this.formGroupModifyPolicy.get('fe_finPoliza')?.disable();
   }
 
   guardarDatos() {
@@ -171,6 +172,9 @@ export class ModifyPolicyComponent implements OnInit {
     }
     else if (error?.['ibanInvalido']) {
       msg = 'Número de cuenta invalido.'
+    }
+    else if (error?.['fechaInferiorActual']) {
+      msg = 'La fecha de inicio no puede ser inferior a la fecha actual.'
     }
     else if (error?.['ibanInvalidoLength']) {
       msg = 'El número de cuenta debe tener 24 caracteres.'
@@ -252,6 +256,14 @@ export class ModifyPolicyComponent implements OnInit {
     }
   }
 
+  setDateFechaFin() {
+    this.formGroupModifyPolicy.get('fe_finPoliza')?.reset();
+    if (this.formGroupModifyPolicy.controls['fe_inicioPoliza'].valid) {
+      const fechaInicio = new Date(this.formGroupModifyPolicy.get('fe_inicioPoliza')?.value)
+      const fechaFin = new Date(fechaInicio.setFullYear(fechaInicio.getFullYear()+1))
+     this.formGroupModifyPolicy.controls['fe_finPoliza'].setValue(fechaFin)
+    }
+  }
 
 
 }

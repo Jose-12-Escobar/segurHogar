@@ -51,3 +51,11 @@ form.user .btn-register {
     }
   }
 }
+
+.toggle-password {
+  position: absolute;
+  right: 33px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}

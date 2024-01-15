@@ -17,6 +17,7 @@ export class RegisterComponent implements OnInit {
 
   formGroupRegister !: FormGroup;
   dataClient !: RegisterIn;
+  passwordClick : boolean = true;
 
   constructor( public _show: SidebarService,
               private _fb: FormBuilder,
@@ -112,4 +113,7 @@ export class RegisterComponent implements OnInit {
         }
 }
 
+passwordVisibility() {
+  this.passwordClick = !this.passwordClick
+}
 }

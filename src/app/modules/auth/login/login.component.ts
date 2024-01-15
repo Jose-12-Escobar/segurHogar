@@ -6,6 +6,8 @@ import { AuthService } from '../services/auth.service';
 import { LoginIn } from '../models/login-model';
 import { MessageService } from 'primeng/api';
 import { LocalStorageService } from '../../admin/services/local-storage.service';
+import { SessionStorageService } from '../services/session-storage.service';
+import { passwordMatchValidator } from '../validator/validatorPassword';
 
 @Component({
   selector: 'app-login',
@@ -18,13 +20,15 @@ export class LoginComponent implements OnInit {
   dataClient !: LoginIn;
   emailOrDocumentoId: boolean = true;
   fcnEmailOrDocumentoId: string = 'email';
+  passwordClick : boolean = true;
 
   constructor(public _showSB: SidebarService,
     private _fb: FormBuilder,
     private _router: Router,
     private _auth: AuthService,
     private _message: MessageService,
-    private _localStorage: LocalStorageService) {
+    private _localStorage: LocalStorageService,
+    private _sessionStorage: SessionStorageService) {
     _showSB.changeShowSidebar(false)
   }
 
@@ -80,6 +84,9 @@ export class LoginComponent implements OnInit {
       }
       this._auth.login(this.dataClient).subscribe({
         next: (res) => {
+
+          this._sessionStorage.setItem('token', res.token)
+
           this._localStorage.setItem('role', res.roles);
           if (res.roles === 'ROLE_ADMIN') {
             this._router.navigate(['/admin/homeMenu'])
@@ -111,4 +118,7 @@ export class LoginComponent implements OnInit {
     this.formGroupLogin.get('email')?.reset();
   }
 
+  passwordVisibility() {
+    this.passwordClick = !this.passwordClick
+  }
 }

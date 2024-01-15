@@ -4,6 +4,7 @@ export interface LoginOut {
   roles: string;
   name: string;
   lastname: string;
+  token: string;
 }
 
 export interface LoginIn {

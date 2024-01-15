@@ -19,3 +19,10 @@
   font-family: fantasy;
   font-size: 1.2rem;
 }
+
+:host ::ng-deep .p-element, .p-ripple, .p-datepicker-trigger, .p-button-icon-only {
+  opacity: initial;
+}
+:host ::ng-deep .p-inputtext, .p-component, .ng-star-inserted {
+  opacity: initial;
+}

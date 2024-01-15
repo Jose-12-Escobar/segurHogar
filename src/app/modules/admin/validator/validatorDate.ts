@@ -16,6 +16,20 @@ export class ValidatorDate {
   return null;
   };
 
+  static DateLowerCurrent(control: AbstractControl): { [key: string]: boolean } | null {
+    const fecha = control.value;
+
+    if (fecha) {
+      const fechaDate = new Date(fecha);
+      const fechaActual = new Date();
+
+      if (fechaDate < fechaActual) {
+        return { 'fechaInferiorActual': true}
+      }
+    }
+    return null;
+    };
+
   static DateTopAge(control: AbstractControl): { [key: string]: boolean } | null {
     const fecha = control.value;
 
