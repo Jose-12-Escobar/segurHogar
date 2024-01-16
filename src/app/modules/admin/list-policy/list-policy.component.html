@@ -2,6 +2,7 @@
 
   <div class="p-fluid grid">
     <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
     <p-card class="col-12">
       <div class="lg:col-12">
         <p class="fs-3 text-uppercase">Listado de <span class="text-orange">polizas</span> </p>
@@ -75,7 +76,7 @@
             <td style="text-align: right;" (click)="editPolicy(policy.idPoliza)" routerLink="/admin/modifyPolicy"><span class="pi pi-pencil" pTooltip="Editar datos de la poliza" tooltipPosition="left"
                 style="color: blue"></span>
             </td>
-            <td style="text-align: right;" (click)="deletePolicy(policy)"><span class="pi pi-trash" pTooltip="Eliminar poliza"
+            <td style="text-align: right;" (click)="confirmDelete($event, policy)"><span class="pi pi-trash" pTooltip="Eliminar poliza"
                 tooltipPosition="left" style="color: red"></span></td>
           </tr>
         </ng-template>

@@ -98,7 +98,8 @@ export class ModifySinisterComponent implements OnInit {
     }
     else if (error?.['nieInvalid']) {
       msg = 'El NIE no es valido'
-    } else if (error?.['requiredDateStart']) {
+    }
+    else if (error?.['requiredDateStart']) {
       msg = 'Debe añadir primero la fecha de inicio'
     }
     else if (error?.['maxlength']) {
@@ -139,17 +140,20 @@ export class ModifySinisterComponent implements OnInit {
 
     if (sinister.feInicioReparacion) {
       this.formGroupModifySinister.controls['fe_inicio_rep'].setValue(new Date(sinister.feInicioReparacion));
-    }else {
+    } else {
       this.formGroupModifySinister.controls['fe_inicio_rep'].reset();
     }
     if (sinister.feFinReparacion) {
       this.formGroupModifySinister.controls['fe_fin_rep'].setValue(new Date(sinister.feFinReparacion));
-    }else {
+    } else {
       this.formGroupModifySinister.controls['fe_fin_rep'].reset();
     }
 
-    this.formGroupModifySinister.enable();
-    this.formGroupModifySinister.get('fe_siniestro')?.disable();
+    this.formGroupModifySinister.get('fe_siniestro')?.enable();
+    this.formGroupModifySinister.get('state')?.enable();
+    this.formGroupModifySinister.get('descripcion')?.enable();
+    this.formGroupModifySinister.get('peritado')?.enable();
+    //this.formGroupModifySinister.get('fe_siniestro')?.disable();
   }
 
   guardarDatos() {
@@ -157,19 +161,19 @@ export class ModifySinisterComponent implements OnInit {
       this.formGroupModifySinister.markAllAsTouched();
     } else {
       this.sinister = {
-          "idSiniestro": this.sinisterModify.idSiniestro,
-          "idRiesgo": this.sinisterModify.idRiesgo,
-          "feSiniestro": this.formGroupModifySinister.get('fe_siniestro')?.value,
-          "importeSiniestro": this.formGroupModifySinister.get('coste')?.value,
-          "feInicioReparacion": this.formGroupModifySinister.get('fe_inicio_rep')?.value,
-          "feFinReparacion": this.formGroupModifySinister.get('fe_fin_rep')?.value,
-          "peritado": this.formGroupModifySinister.get('peritado')?.value,
-          "idEstado": { "idEstado": this.formGroupModifySinister.get('state')?.value.idEstado },
-          "description": this.formGroupModifySinister.get('descripcion')?.value,
-          "refSiniestro": this.sinisterModify.refSiniestro
+        "idSiniestro": this.sinisterModify.idSiniestro,
+        "idRiesgo": this.sinisterModify.idRiesgo,
+        "feSiniestro": this.formGroupModifySinister.get('fe_siniestro')?.value,
+        "importeSiniestro": this.formGroupModifySinister.get('coste')?.value,
+        "feInicioReparacion": this.formGroupModifySinister.get('fe_inicio_rep')?.value,
+        "feFinReparacion": this.formGroupModifySinister.get('fe_fin_rep')?.value,
+        "peritado": this.formGroupModifySinister.get('peritado')?.value,
+        "idEstado": { "idEstado": this.formGroupModifySinister.get('state')?.value.idEstado },
+        "description": this.formGroupModifySinister.get('descripcion')?.value,
+        "refSiniestro": this.sinisterModify.refSiniestro
       }
 
-     this._sinisterService.updateSinister(this.sinister).subscribe(
+      this._sinisterService.updateSinister(this.sinister).subscribe(
         (res) => {
           this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Siniestro modificado con exito' });
           this.formGroupModifySinister.reset();
@@ -188,9 +192,9 @@ export class ModifySinisterComponent implements OnInit {
   }
 
   enableInputFechaInicio() {
-     if (!this.formGroupModifySinister.controls['fe_siniestro']) {
+    if (!this.formGroupModifySinister.controls['fe_siniestro']) {
       this.formGroupModifySinister.get('fe_inicio_rep')?.disable();
-     }
+    }
   }
 
   dateStartOlderDamage(control: AbstractControl): { [key: string]: boolean } | null {
@@ -221,11 +225,34 @@ export class ModifySinisterComponent implements OnInit {
         return { 'dateEndOlderStart': true };
       }
     }
-    if(!fechaInicio) {
+    if (!fechaInicio) {
       return { 'requiredDateStart': true };
     }
 
 
     return null;
+  }
+
+  resetFechaFinReparacion() {
+    let error = this.formGroupModifySinister.get('fe_fin_rep')?.errors
+    let fcnFechaInicio = this.formGroupModifySinister.get('fe_inicio_rep')
+    if (error?.['requiredDateStart'] && fcnFechaInicio?.valid) {
+      this.formGroupModifySinister.get('fe_fin_rep')?.reset();
+    }
+  }
+
+  isPeritado(){
+    if (!this.formGroupModifySinister.get('peritado')?.value) {
+      this.formGroupModifySinister.get('fe_inicio_rep')?.disable();
+      this.formGroupModifySinister.get('fe_fin_rep')?.disable();
+      this.formGroupModifySinister.get('coste')?.disable();
+      this.formGroupModifySinister.get('fe_inicio_rep')?.reset();
+      this.formGroupModifySinister.get('fe_fin_rep')?.reset();
+      this.formGroupModifySinister.get('coste')?.reset();
+    }else if (this.formGroupModifySinister.get('peritado')?.value) {
+      this.formGroupModifySinister.get('fe_inicio_rep')?.enable();
+      this.formGroupModifySinister.get('fe_fin_rep')?.enable();
+      this.formGroupModifySinister.get('coste')?.enable();
+    }
   }
 }

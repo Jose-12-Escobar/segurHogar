@@ -1,6 +1,6 @@
 .untree_co-section {
   padding-bottom: 15rem;
-  padding-top: 10rem;
+  padding-top: 6rem;
   position: relative;
 }
 
@@ -30,15 +30,7 @@
   color         : rgb(244, 98, 58);
 }
 
-.line-bottom:before {
-  display   : none;
-  content   : "";
-  position  : absolute;
-  width     : 40px;
-  height    : 3px;
-  background: #ec661f;
-  bottom    : 0;
-}
+
 
 .line-bottom.text-center:before {
   left             : 50%;
@@ -58,3 +50,6 @@
 
 }
 
+.color-check {
+  color: rgb(108, 215, 0);
+}

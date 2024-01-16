@@ -3,6 +3,7 @@
   <div class="p-fluid grid">
     <p-card class="col-12">
       <p-toast></p-toast>
+      <p-confirmDialog></p-confirmDialog>
       <div class="lg:col-12">
         <p class="fs-3 text-uppercase">Listado de <span class="text-orange">clientes</span> </p>
       </div>
@@ -66,7 +67,7 @@
               <span class="pi pi-pencil" pTooltip="Editar datos del cliente" tooltipPosition="left"
                 style="color: blue"></span>
             </td>
-            <td style="text-align: right;" (click)="deleteClient(client)"><span class="pi pi-trash" pTooltip="Eliminar cliente"
+            <td style="text-align: right;" (click)="confirmDelete($event, client)"><span class="pi pi-trash" pTooltip="Eliminar cliente"
                 tooltipPosition="left" style="color: red"></span></td>
           </tr>
         </ng-template>

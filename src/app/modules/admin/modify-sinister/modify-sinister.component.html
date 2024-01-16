@@ -76,7 +76,7 @@
         <div class="grid">
           <div class="lg:col-4 md:col-6 py-4">
             <span class="p-float-label">
-              <p-calendar id="feInicioRep" [readonlyInput]="true" dateFormat="yy/mm/dd" [showIcon]="true"
+              <p-calendar id="feInicioRep" (ngModelChange)="resetFechaFinReparacion()" [readonlyInput]="true" dateFormat="yy/mm/dd" [showIcon]="true"
                 formControlName="fe_inicio_rep"></p-calendar>
               <label for="feInicioRep">Fecha inicio reparación</label>
             </span>
@@ -107,9 +107,9 @@
 
           <div class="lg:col-8 md:col-6 py-4">
             Peritado:
-            <p-radioButton formControlName="peritado" [value]=true inputId="yes" class="ml-2"></p-radioButton>
+            <p-radioButton formControlName="peritado" (ngModelChange)="isPeritado()" [value]=true inputId="yes" class="ml-2"></p-radioButton>
             <label for="yes" class="ml-2">Sí</label>
-            <p-radioButton formControlName="peritado" [value]=false inputId="no" class="ml-2"></p-radioButton>
+            <p-radioButton formControlName="peritado" (ngModelChange)="isPeritado()" [value]=false inputId="no" class="ml-2"></p-radioButton>
             <label for="no" class="ml-2">No</label><br>
             <small *ngIf="noEsValido('peritado',formGroupModifySinister)">{{
               getMensaje('peritado',formGroupModifySinister) }}</small>

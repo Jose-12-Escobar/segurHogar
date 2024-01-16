@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { HeaderService } from 'src/app/Services/header.service';
 import { SidebarService } from 'src/app/Services/sidebar.service';
+import { LocalStorageService } from 'src/app/modules/admin/services/local-storage.service';
 import { AuthService } from 'src/app/modules/auth/services/auth.service';
 
 
@@ -12,6 +13,7 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
+  role !: string;
   scroll!: boolean;
   show:boolean = false;
   inAdminOrClient : boolean = false;
@@ -19,8 +21,10 @@ export class HeaderComponent implements OnInit {
   constructor(private _showHD: HeaderService,
               private _router: Router,
               public _showSB: SidebarService,
-              public _authService: AuthService,) {
+              public _authService: AuthService,
+              public _localStorage: LocalStorageService) {
     this._showHD.showHeader.subscribe( res => { this.scroll = res});
+    this.role = _localStorage.getItem('role');
   }
 
   toggleCollapse(): void {
@@ -29,6 +33,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this._router.events.subscribe(event => {
+
       if (event instanceof NavigationEnd) {
         const splitPath = this._router.url.split('/');
         if (splitPath[1] != "home") {

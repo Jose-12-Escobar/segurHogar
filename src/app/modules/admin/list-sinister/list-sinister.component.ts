@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SidebarService } from 'src/app/Services/sidebar.service';
 import { SinisterService } from '../services/sinister.service';
 import { Sinister } from '../models/sinister-model';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { LocalStorageService } from '../services/local-storage.service';
 
 @Component({
@@ -17,7 +17,8 @@ export class ListSinisterComponent implements OnInit {
   constructor( public _show: SidebarService,
                private _sinisterService: SinisterService,
                private _messageService: MessageService,
-               private _localStorageService: LocalStorageService) {
+               private _localStorageService: LocalStorageService,
+               private _confirmationService: ConfirmationService) {
     _show.changeShowSidebar(true);
   }
 
@@ -50,11 +51,27 @@ export class ListSinisterComponent implements OnInit {
         }
       })
     }else {
-      this._messageService.add({ severity: 'error', summary: 'Error', detail: 'No se puede eliminar una poliza que no está en estado finalizado' });
+      this._messageService.add({ severity: 'error', summary: 'Error', detail: 'No se puede eliminar un siniestro que no está en estado finalizado' });
 
     }
 
   }
+
+  confirmDelete(event: Event, sinister: Sinister) {
+
+    this._confirmationService.confirm({
+    target: event.target as EventTarget,
+    message: '¿Está seguro que desea eliminar el siniestro?',
+    header: 'Confirmacón',
+    icon: 'pi pi-exclamation-triangle',
+    acceptIcon: "none",
+    rejectIcon: "none",
+    rejectButtonStyleClass: "p-button-text",
+    accept: () => {
+      this.deleteSinister(sinister);
+    },
+  });
+}
 
 
 }

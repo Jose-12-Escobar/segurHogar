@@ -4,7 +4,7 @@ import { Client } from '../models/client-model';
 import { LocalStorageService } from '../services/local-storage.service';
 import { ClientService } from '../services/client.service';
 import { Subscription } from 'rxjs';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { Policy } from '../models/policy-model';
 
 @Component({
@@ -16,12 +16,13 @@ export class ListClientComponent implements OnInit {
 
   subscription !: Subscription;
   clients !: Client[];
-  policyVigor !: Policy[];
+  policyVigor : Policy[] = [];
 
   constructor(public _show: SidebarService,
     private _localStorageService: LocalStorageService,
     private _clientService: ClientService,
-    private _messageService: MessageService) {
+    private _messageService: MessageService,
+    private _confirmationService: ConfirmationService) {
     _show.changeShowSidebar(true);
   }
 
@@ -61,6 +62,22 @@ export class ListClientComponent implements OnInit {
     }else if (this.policyVigor.length > 0) {
       this._messageService.add({ severity: 'error', summary: 'Error', detail: 'No se puede eliminar un cliente con una poliza en vigor' });
     }
+  }
+
+  confirmDelete(event: Event, client : Client) {
+
+        this._confirmationService.confirm({
+        target: event.target as EventTarget,
+        message: '¿Está seguro que desea eliminar el cliente?',
+        header: 'Confirmacón',
+        icon: 'pi pi-exclamation-triangle',
+        acceptIcon: "none",
+        rejectIcon: "none",
+        rejectButtonStyleClass: "p-button-text",
+        accept: () => {
+          this.deleteClient(client);
+        },
+      });
   }
 
 }

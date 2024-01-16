@@ -4,7 +4,7 @@ import { PolicyService } from '../services/policy.service';
 import { Policy } from '../models/policy-model';
 import { LocalStorageService } from '../services/local-storage.service';
 import { ClientService } from '../services/client.service';
-import { MessageService } from 'primeng/api';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-list-policy',
@@ -18,7 +18,8 @@ export class ListPolicyComponent implements OnInit {
   constructor( public _show: SidebarService,
                private _policyService: PolicyService,
                private _messageService: MessageService,
-               private _localStorageService: LocalStorageService
+               private _localStorageService: LocalStorageService,
+               private _confirmationService: ConfirmationService
                ){
     _show.changeShowSidebar(true)
   }
@@ -56,5 +57,21 @@ export class ListPolicyComponent implements OnInit {
     }
 
   }
+
+  confirmDelete(event: Event, policy: Policy) {
+
+    this._confirmationService.confirm({
+    target: event.target as EventTarget,
+    message: '¿Está seguro que desea eliminar la poliza?',
+    header: 'Confirmacón',
+    icon: 'pi pi-exclamation-triangle',
+    acceptIcon: "none",
+    rejectIcon: "none",
+    rejectButtonStyleClass: "p-button-text",
+    accept: () => {
+      this.deletePolicy(policy);
+    },
+  });
+}
 
 }

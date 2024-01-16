@@ -6,6 +6,7 @@ import { LoginIn, LoginOut } from '../models/login-model';
 import { RegisterIn, RegisterOut } from '../models/register-model';
 import { LocalStorageService } from '../../admin/services/local-storage.service';
 import { skipApiKey } from '../http.contex';
+import { SessionStorageService } from './session-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private _baseUrl: ApiService,
-              private _localStorageService: LocalStorageService) {
+              private _sessionService: SessionStorageService) {
     this.baseUrl = `${this._baseUrl.getBaseUrl()}`;
   }
 
@@ -29,6 +30,6 @@ export class AuthService {
   }
 
   isLogged(): boolean {
-    return this._localStorageService.getItem('role') ? true : false;
+    return this._sessionService.getItem('token') ? true : false;
   }
 }

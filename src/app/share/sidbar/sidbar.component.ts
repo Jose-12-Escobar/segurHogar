@@ -36,7 +36,8 @@ export class SidebarComponent implements OnInit {
           { label: 'Crear', icon: 'bi bi-file-earmark-lock', routerLink: '/admin/newPolicy', visible: this.isAdmin },
           { label: 'Modificar', icon: 'bi bi-file-earmark-diff', routerLink: '/admin/modifyPolicy', visible: this.isAdmin  },
           { label: 'Lista', icon: 'bi bi-files', routerLink: '/admin/listPolicy', visible: this.isAdmin },
-          { label: 'Mis polizas', icon: 'bi bi-file-earmark-lock-fill', routerLink: '/client/dataPolicy', visible: this.isClient }
+          { label: 'Mis polizas', icon: 'bi bi-file-earmark-lock-fill', routerLink: '/client/dataPolicy', visible: this.isClient },
+          { label: 'Nueva', icon: 'bi bi-file-earmark-lock-fill', routerLink: '/client/homeMenu', visible: this.isClient }
         ]
       },
       {
@@ -52,8 +53,8 @@ export class SidebarComponent implements OnInit {
           { label: 'Nuevo', icon: 'bi bi-house-exclamation', routerLink: '/admin/newSinister', visible: this.isAdmin },
           { label: 'Modificar', icon: 'bi bi-tools', routerLink:'/admin/modifySinister', visible: this.isAdmin },
           { label: 'Lista', icon: 'pi pi-list', routerLink: '/admin/listSinister', visible: this.isAdmin },
-          { label: 'Mis siniestros', icon: 'bi bi-wrench-adjustable', routerLink: '/client/dataSinister', visible: this.isClient}
-
+          { label: 'Mis siniestros', icon: 'bi bi-wrench-adjustable', routerLink: '/client/dataSinister', visible: this.isClient},
+          { label: 'Nuevo', icon: 'bi bi-wrench-adjustable', routerLink: '/client/homeMenu', visible: this.isClient}
         ]
       },
 
