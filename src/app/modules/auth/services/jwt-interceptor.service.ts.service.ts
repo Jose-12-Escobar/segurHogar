@@ -15,7 +15,6 @@ export class JwtInterceptorServiceTsService implements HttpInterceptor {
     let token : string = this._sessionStorage.getItem('token');
 
     if (req.context.get(NO_API_KEY)) {
-      // if enters it's because skipApiKey function was called for this request. Won't add the token
       return next.handle(req);
   }
 

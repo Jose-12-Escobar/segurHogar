@@ -63,7 +63,7 @@ export class ListPolicyComponent implements OnInit {
     this._confirmationService.confirm({
     target: event.target as EventTarget,
     message: '¿Está seguro que desea eliminar la poliza?',
-    header: 'Confirmacón',
+    header: 'Confirmación',
     icon: 'pi pi-exclamation-triangle',
     acceptIcon: "none",
     rejectIcon: "none",

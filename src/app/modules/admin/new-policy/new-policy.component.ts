@@ -206,7 +206,7 @@ export class NewPolicyComponent implements OnInit {
       this._confirmationService.confirm({
       target: event.target as EventTarget,
       message: '¿Desea utilizar la dirección de contacto como diección para el reisgo?',
-      header: 'Confirmacón',
+      header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptIcon: "none",
       rejectIcon: "none",

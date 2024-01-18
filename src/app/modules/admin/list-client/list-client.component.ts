@@ -69,7 +69,7 @@ export class ListClientComponent implements OnInit {
         this._confirmationService.confirm({
         target: event.target as EventTarget,
         message: '¿Está seguro que desea eliminar el cliente?',
-        header: 'Confirmacón',
+        header: 'Confirmación',
         icon: 'pi pi-exclamation-triangle',
         acceptIcon: "none",
         rejectIcon: "none",

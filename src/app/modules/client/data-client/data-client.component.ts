@@ -36,7 +36,6 @@ export class DataClientComponent implements OnInit {
           this.client = res;
           this.showClientInformation(this.client);
           this.show = true;
-          //this.policies = res.polizas;
         },
         error: () => {
           this.show = false;

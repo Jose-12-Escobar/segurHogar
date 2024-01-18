@@ -101,7 +101,6 @@ export class RegisterComponent implements OnInit {
           }
           this._authService.register(this.dataClient).subscribe({
             next: (res) => {
-              console.log(res)
               this._messageService.add({ severity: 'success', summary: 'Genial', detail: 'Se ha realizado el registro correctamente' });
               this._router.navigate(['/auth/login']);
             },

@@ -65,7 +65,7 @@ export class ModifySinisterComponent implements OnInit {
       state: [null, [Validators.required]],
       descripcion: [null, [Validators.maxLength(255)]],
       fe_inicio_rep: [null, [Validators.required, this.dateStartOlderDamage.bind(this)]],
-      fe_fin_rep: [null, [Validators.required, this.dateEndOlderStart.bind(this)]],
+      fe_fin_rep: [null, [this.dateEndOlderStart.bind(this)]],
       coste: [null, [Validators.required]],
       peritado: [null, [Validators.required]],
     });
