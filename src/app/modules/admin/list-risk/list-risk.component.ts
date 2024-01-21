@@ -46,11 +46,13 @@ export class ListRiskComponent implements OnInit {
   generateRisksShow() {
     this.risks.forEach( risk => {
       this.policies.forEach((policy) => {
-
-        if (risk.idRiesgo === policy.riesgos[0].idRiesgo) {
+        if (policy.riesgos[0]) {
+         if (risk.idRiesgo === policy.riesgos[0].idRiesgo) {
           risk.nuPoliza = policy.nuPoliza;
           this.risksShow.push(risk)
         }
+        }
+
       });
     });
   }

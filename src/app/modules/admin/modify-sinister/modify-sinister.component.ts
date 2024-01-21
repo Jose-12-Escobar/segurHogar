@@ -43,6 +43,7 @@ export class ModifySinisterComponent implements OnInit {
     if (this.idSinisterLocalStorage) {
       this._sinisterService.getSinisterById(this.idSinisterLocalStorage).subscribe({
         next: (res: Sinister) => {
+          this.sinisterModify = res
           this.formGroupModifySinister.enable();
           this.showRiskInformation(res);
           this.formGroupSearch.disable();

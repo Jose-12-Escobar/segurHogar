@@ -194,7 +194,7 @@ export class NewPolicyComponent implements OnInit {
           this.formGroupNewPolicy.reset();
         },
         () => {
-          this._messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al crear la poliza y el reisgo' });
+          this._messageService.add({ severity: 'error', summary: 'Error', detail: 'Error al crear la poliza y el riesgo' });
         }
       )
     }
@@ -205,7 +205,7 @@ export class NewPolicyComponent implements OnInit {
     if (this.autoComplete) {
       this._confirmationService.confirm({
       target: event.target as EventTarget,
-      message: '¿Desea utilizar la dirección de contacto como diección para el reisgo?',
+      message: '¿Desea utilizar la dirección de contacto como dirección  para el riesgo?',
       header: 'Confirmación',
       icon: 'pi pi-exclamation-triangle',
       acceptIcon: "none",
@@ -220,7 +220,7 @@ export class NewPolicyComponent implements OnInit {
         this.formGroupNewPolicy.controls['coPostal'].setValue(this.client.codPostal);
         this.formGroupNewPolicy.controls['localidad'].setValue(this.client.localidad);
         this.formGroupNewPolicy.controls['provincia'].setValue(this.client.provincia);
-        this._messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Se ha establecido la dirección de contacto como el riego' });
+        this._messageService.add({ severity: 'info', summary: 'Confirmed', detail: 'Se ha establecido la dirección de contacto como el riesgo' });
       },
     });
     this.autoComplete = false;

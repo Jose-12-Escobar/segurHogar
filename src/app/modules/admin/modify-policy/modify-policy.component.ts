@@ -122,11 +122,12 @@ export class ModifyPolicyComponent implements OnInit {
         "idSituacionPoliza": { "idEstado": this.formGroupModifyPolicy.get('estado')?.value.key },
         "nuCuenta": this.formGroupModifyPolicy.get('numeroCuenta')?.value,
         "idModalidad": { "idModalidad": this.formGroupModifyPolicy.get('modalidad')?.value.key },
-        "nuPoliza": this.formGroupModifyPolicy.get('nuPoliza')?.value,
+        "nuPoliza": this.policyModify.nuPoliza,
         "riesgos": this.policyModify.riesgos
       }
       this._policyService.updatePolicy(this.policy).subscribe(
         () => {
+          console.log(this.policy)
           this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Poliza modificada con exito' });
           this.formGroupModifyPolicy.reset();
           this.formGroupModifyPolicy.disable();

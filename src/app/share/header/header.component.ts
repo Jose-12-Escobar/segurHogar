@@ -30,7 +30,6 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this._authService.roleIsAdmin)
     this._router.events.subscribe(event => {
 
       if (event instanceof NavigationEnd) {
