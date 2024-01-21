@@ -13,7 +13,6 @@ import { AuthService } from 'src/app/modules/auth/services/auth.service';
 })
 export class HeaderComponent implements OnInit {
 
-  role !: string;
   scroll!: boolean;
   show:boolean = false;
   inAdminOrClient : boolean = false;
@@ -24,7 +23,6 @@ export class HeaderComponent implements OnInit {
               public _authService: AuthService,
               public _localStorage: LocalStorageService) {
     this._showHD.showHeader.subscribe( res => { this.scroll = res});
-    this.role = _localStorage.getItem('role');
   }
 
   toggleCollapse(): void {
@@ -32,6 +30,7 @@ export class HeaderComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this._authService.roleIsAdmin)
     this._router.events.subscribe(event => {
 
       if (event instanceof NavigationEnd) {

@@ -17,7 +17,8 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private _baseUrl: ApiService,
-              private _sessionService: SessionStorageService) {
+              private _sessionService: SessionStorageService,
+              private _localStorage: LocalStorageService) {
     this.baseUrl = `${this._baseUrl.getBaseUrl()}`;
   }
 
@@ -31,5 +32,12 @@ export class AuthService {
 
   isLogged(): boolean {
     return this._sessionService.getItem('token') ? true : false;
+  }
+
+  roleIsAdmin(): boolean {
+    if (this._localStorage.getItem('role') === 'ROLE_ADMIN')
+      return true;
+    else
+      return false;
   }
 }

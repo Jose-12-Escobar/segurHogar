@@ -26,8 +26,8 @@
           <ul class="navbar-nav ms-auto my-2 my-lg-0">
             <li *ngIf="!_authService.isLogged()" class="nav-item"><a routerLink="/auth/login" class="nav-link" href="#">Iniciar sesión</a></li>
             <li *ngIf="!_authService.isLogged()" class="nav-item"><a routerLink="/auth/register" class="nav-link" href="#">Registrar</a></li>
-            <li *ngIf="_authService.isLogged() && role === 'ROLE_ADMIN'" class="nav-item"><a routerLink="/admin/newClient" class="nav-link" href="#">Menú</a></li>
-            <li *ngIf="_authService.isLogged() && role === 'ROLE_USER'" class="nav-item"><a routerLink="/client/homeMenu" class="nav-link" href="#">Menú</a></li>
+            <li *ngIf="_authService.isLogged() && _authService.roleIsAdmin() " class="nav-item"><a routerLink="/admin/newClient" class="nav-link" href="#">Menú</a></li>
+            <li *ngIf="_authService.isLogged() && !_authService.roleIsAdmin()" class="nav-item"><a routerLink="/client/homeMenu" class="nav-link" href="#">Menú</a></li>
             <li *ngIf="_authService.isLogged()" (click)="logout()" class="nav-item"><a class="nav-link" href="#">Cerrar sesión</a></li>
           </ul>
         </div>
