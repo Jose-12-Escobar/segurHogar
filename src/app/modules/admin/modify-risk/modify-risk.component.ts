@@ -106,7 +106,7 @@ export class ModifyRiskComponent implements OnInit {
     } else {
       this.risk = {
         "idRiesgo": this.riskModify.idRiesgo,
-        "idPoliza": this.riskModify.idPoliza,
+        "poliza": this.riskModify.poliza,
         "tipoCalle": this.formGroupModifyRisk.get('tipoCalle')?.value,
         "noCalle": this.formGroupModifyRisk.get('noCalle')?.value,
         "numero": this.formGroupModifyRisk.get('numero')?.value,

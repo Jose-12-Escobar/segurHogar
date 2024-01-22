@@ -2,7 +2,7 @@ import { Sinister } from "./sinister-model";
 
 export interface Risk {
   idRiesgo : number;
-  idPoliza ?: number;
+  poliza ?: number;
   tipoCalle?: string;
   noCalle?: string;
   numero?: string;

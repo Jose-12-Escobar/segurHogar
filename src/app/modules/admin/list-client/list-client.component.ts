@@ -50,7 +50,7 @@ export class ListClientComponent implements OnInit {
     }else{
       this.policyVigor = [];
     }
-    console.log(this.policyVigor.length)
+
     if (this.policyVigor.length === 0) {
       this._clientService.deleteClientById(client.idCliente).subscribe(
         () => {

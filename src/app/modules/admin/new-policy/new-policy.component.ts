@@ -41,6 +41,7 @@ export class NewPolicyComponent implements OnInit {
     private _fb: FormBuilder,
     private _policyService: PolicyService,
     private _clientService: ClientService,
+    private _riskService: RiskService,
     private _messageService: MessageService,
     private _confirmationService: ConfirmationService) {
     _show.changeShowSidebar(true);
@@ -164,17 +165,6 @@ export class NewPolicyComponent implements OnInit {
     if (this.formGroupNewPolicy.invalid) {
       this.formGroupNewPolicy.markAllAsTouched();
     } else {
-      this.risk = {
-        "idRiesgo": 0,
-        "tipoCalle": this.formGroupNewPolicy.get('tipoCalle')?.value,
-        "noCalle": this.formGroupNewPolicy.get('noCalle')?.value,
-        "numero": this.formGroupNewPolicy.get('numero')?.value,
-        "piso": this.formGroupNewPolicy.get('piso')?.value,
-        "puerta": this.formGroupNewPolicy.get('puerta')?.value,
-        "coPostal": this.formGroupNewPolicy.get('coPostal')?.value,
-        "localidad": this.formGroupNewPolicy.get('localidad')?.value,
-        "provincia": this.formGroupNewPolicy.get('provincia')?.value,
-      }
       this.policy = {
         "idPoliza": 0,
         "idCliente": this.client.idCliente,
@@ -189,8 +179,25 @@ export class NewPolicyComponent implements OnInit {
       }
 
       this._policyService.postNewPolicy(this.policy).subscribe(
-        () => {
-          this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Poliza y riesgo creada con exito' });
+        (res) => {
+          this.risk = {
+            "idRiesgo": 0,
+            "poliza": res.idPoliza,
+            "tipoCalle": this.formGroupNewPolicy.get('tipoCalle')?.value,
+            "noCalle": this.formGroupNewPolicy.get('noCalle')?.value,
+            "numero": this.formGroupNewPolicy.get('numero')?.value,
+            "piso": this.formGroupNewPolicy.get('piso')?.value,
+            "puerta": this.formGroupNewPolicy.get('puerta')?.value,
+            "coPostal": this.formGroupNewPolicy.get('coPostal')?.value,
+            "localidad": this.formGroupNewPolicy.get('localidad')?.value,
+            "provincia": this.formGroupNewPolicy.get('provincia')?.value,
+          }
+          this._riskService.postNewRisk(this.risk).subscribe(
+            () => {
+              this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Riesgo creado con exito' });
+            }
+          )
+          this._messageService.add({ severity: 'success', summary: 'Success', detail: 'Poliza creada con exito' });
           this.formGroupNewPolicy.reset();
         },
         () => {
