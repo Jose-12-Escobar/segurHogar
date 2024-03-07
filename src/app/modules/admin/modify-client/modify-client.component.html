@@ -1,0 +1,183 @@
+<div class="container-fluid">
+
+  <div class="p-fluid grid">
+
+    <form class="col-12" [formGroup]="formGroupSearch" (submit)="searchClient()">
+
+      <p-card>
+        <p class="fs-4 text-uppercase">Modificar datos <span class="text-orange">de cliente</span> </p>
+        <p class="fs-6 text-uppercase">Buscar cliente</p>
+
+        <div class="grid py-4">
+          <div class="col-3 ">
+            <span class="p-float-label">
+              <input pInputText id="searchDocumetoId" formControlName="id_documento" />
+              <label htmlFor="searchDocumetoId">Documento ID</label>
+            </span>
+            <small *ngIf="isValid('id_documento', formGroupSearch)">{{ getMensaje('id_documento', formGroupSearch) }}</small>
+            <p-toast></p-toast>
+          </div>
+
+          <div class="col-3 ">
+            <span class="p-float-label">
+              <input pInputText id="searchTelefono" formControlName="telefono"  />
+              <label htmlFor="searchTelefono">Teléfono</label>
+            </span>
+            <small *ngIf="isValid('telefono', formGroupSearch)">{{ getMensaje('telefono', formGroupSearch) }}</small>
+          </div>
+
+          <div class="col-3 ">
+            <span class="p-float-label">
+              <input pInputText id="searchEmail" formControlName="mail" />
+              <label htmlFor="searchEmail">Email</label>
+            </span>
+            <small *ngIf="isValid('mail', formGroupSearch)">{{ getMensaje('mail', formGroupSearch) }}</small>
+          </div>
+
+          <div class="md:col-4 lg:col-2 ms-3">
+            <button type="submit" pButton pRipple label="Buscar" icon="pi pi-search" class="btn-orange"></button>
+          </div>
+        </div>
+      </p-card>
+    </form>
+
+
+    <p-card class="col-12">
+        <form class="col-12" [formGroup]="formGroupClient" (submit)="modifyClient()">
+
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-6 text-uppercase">Datos personales</p>
+          </div>
+
+          <div class="lg:col-4 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText id="nombre" formControlName="nombre" />
+              <label htmlFor="nombre">Nombre</label>
+            </span>
+            <small *ngIf="isValid('nombre', formGroupClient)">{{ getMensaje('nombre', formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText id="segundoApellido" formControlName="apellidoUno"/>
+              <label htmlFor="segundoApellido">Primer Apellido</label>
+            </span>
+            <small  *ngIf="isValid('apellidoUno', formGroupClient)">{{ getMensaje('apellidoUno', formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText id="primerApellido" formControlName="apellidoDos"/>
+              <label htmlFor="primerApellido">Segundo Apellido</label>
+            </span>
+            <small  *ngIf="isValid('apellidoDos', formGroupClient)">{{ getMensaje('apellidoDos', formGroupClient) }}</small>
+          </div>
+
+        </div>
+
+        <p class="fs-6 text-uppercase mt-4">Datos de contacto</p>
+
+        <div class="grid">
+
+          <div class="col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText (ngModelChange)="existEmail('mail')" id="email" formControlName="mail" />
+              <label htmlFor="email">Email</label>
+            </span>
+            <small *ngIf="isValid('mail', formGroupClient)">{{ getMensaje('mail', formGroupClient) }}</small>
+          </div>
+
+          <div class="col-6 py-4">
+            <span class="p-float-label">
+              <p-inputMask id="telefono" mask="999-999-999" slotChar="###-###-###"
+                formControlName="telefono"></p-inputMask>
+              <label htmlFor="telefono">Teléfono</label>
+            </span>
+            <small *ngIf="isValid('telefono', formGroupClient)">{{ getMensaje('telefono', formGroupClient) }}</small>
+          </div>
+        </div>
+
+        <p class="fs-6 text-uppercase">Dirección de contacto</p>
+        <div class="grid">
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="calle" formControlName="calle" />
+              <label for="calle">Calle</label>
+            </span>
+            <small  *ngIf="isValid('calle', formGroupClient)">{{ getMensaje('calle', formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="numero" formControlName="numero" pKeyFilter="int" />
+              <label for="numero">Número</label>
+            </span>
+            <small  *ngIf="isValid('numero', formGroupClient)">{{ getMensaje('numero', formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="piso" formControlName="piso" />
+              <label for="piso">Piso</label>
+            </span>
+            <small  *ngIf="isValid('piso', formGroupClient)">{{ getMensaje('piso', formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="cp" formControlName="codigoPostal" pKeyFilter="int" />
+              <label for="cp">Código Postal</label>
+            </span>
+            <small  *ngIf="isValid('codigoPostal', formGroupClient)">{{ getMensaje('codigoPostal', formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="localidad" formControlName="localidad" />
+              <label for="localidad">Localidad</label>
+            </span>
+            <small  *ngIf="isValid('localidad', formGroupClient)">{{ getMensaje('localidad', formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="tipoCalle" formControlName="tipoCalle" />
+              <label for="tipoCalle">Tipo de calle</label>
+            </span>
+            <small  *ngIf="isValid('tipoCalle',formGroupClient)">{{ getMensaje('tipoCalle',formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="puerta" formControlName="puerta" />
+              <label for="puerta">Puerta</label>
+            </span>
+            <small  *ngIf="isValid('puerta',formGroupClient)">{{ getMensaje('puerta',formGroupClient) }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="provincia" formControlName="provincia" />
+              <label for="provincia">Provincia</label>
+            </span>
+            <small  *ngIf="isValid('provincia',formGroupClient)">{{ getMensaje('provincia',formGroupClient) }}</small>
+          </div>
+
+      </div>
+        <div class="grid py-2">
+          <div class="lg:col-2 md:col-6">
+            <button type="submit" pButton pRipple label="Guardar" icon="pi pi-save" class="btn-orange"></button>
+          </div>
+          <div class="lg:col-2 md:col-6" >
+            <button  pButton pRipple label="Cancelar" icon="pi pi-times" class="btn-orange" (click)="clearForm()"></button>
+          </div>
+        </div>
+
+      </form>
+    </p-card>
+
+
+  </div>
+</div>

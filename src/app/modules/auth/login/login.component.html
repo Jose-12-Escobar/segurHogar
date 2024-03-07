@@ -1,0 +1,65 @@
+<div class="container">
+  <p-toast></p-toast>
+  <div class="row justify-content-center padding-top-bottom">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+      <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+          <!-- Nested Row within Card Body -->
+          <div class="row">
+            <div class="col-lg-6 d-none d-lg-block bg-login-image"></div>
+            <div class="col-lg-6">
+              <div class="p-5">
+                <div class="text-center">
+                  <h4 class=" text-dark mb-4">Iniciar sesión!</h4>
+                </div>
+                <form class="user" [formGroup]="formGroupLogin" (submit)="login()">
+
+                  <p class="fs-6 text-center cursor-pointer mb-4"><span (click)="isEmail()" [ngClass]="{ 'text-primary' : emailOrDocumentoId }">correo
+                    electrónico</span> / <span (click)="isUsername()" [ngClass]="{ 'text-primary' : !emailOrDocumentoId }">DNI o NIE</span></p>
+
+                  <div *ngIf="emailOrDocumentoId" class=" mb-5">
+                    <span class="p-float-label">
+                      <input pInputText id="email" formControlName="email" class="form-control-user" />
+                      <label htmlFor="email">Correo electrónico</label>
+                    </span>
+                    <small *ngIf="noEsValido('email')">{{ getMensaje('email') }}</small>
+                  </div>
+
+                  <div *ngIf="!emailOrDocumentoId" class=" mb-5">
+                    <span class="p-float-label">
+                      <input pInputText id="documentoId" formControlName="documentoId" class="form-control-user" />
+                      <label htmlFor="email">DNI | NIE</label>
+                    </span>
+                    <small *ngIf="noEsValido('documentoId')">{{ getMensaje('documentoId') }}</small>
+                  </div>
+
+                  <div class="">
+                    <span class="p-float-label">
+                      <input pInputText type="{{ passwordClick ? 'password' : 'text'}}" id="pass" formControlName="password"
+                        class="form-control-user" />
+                        <span class="toggle-password" (click)="passwordVisibility()" >
+                          <i class="bi " [ngClass]="{'bi-eye': passwordClick, 'bi-eye-slash': !passwordClick }" id="eye-icon"></i>
+                        </span>
+                      <label htmlFor="pass">Contraseña</label>
+
+                    </span>
+                    <small *ngIf="noEsValido('password')">{{ getMensaje('password') }}</small>
+                  </div>
+                  <div class="pt-5">
+                    <button type="submit" pButton pRipple label="Iniciar" icon="pi pi-lock-open"
+                      class="btn-login btn-orange"></button>
+                  </div>
+                </form>
+                <hr>
+                <div class="text-center">
+                  <a routerLink="/auth/register" class="small">Registrate</a>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

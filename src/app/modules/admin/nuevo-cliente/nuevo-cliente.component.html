@@ -1,0 +1,175 @@
+<div class="container-fluid">
+  <div class="p-fluid grid">
+    <form class="col-12" [formGroup]="formGroupNewClient" (ngSubmit)="guardarDatos()">
+
+      <p-card>
+
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-3 text-uppercase">Creación de <span class="text-orange">nuevo cliente</span> </p>
+            <p class="fs-6 text-uppercase">Datos personales</p>
+          </div>
+
+          <div class="lg:col-4 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText id="nombre" formControlName="nombre"/>
+              <label htmlFor="nombre">Nombre</label>
+            </span>
+            <small *ngIf="noEsValido('nombre')">{{ getMensaje('nombre') }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText id="segundoApellido" formControlName="apellidoUno"/>
+              <label htmlFor="segundoApellido">Primer Apellido</label>
+            </span>
+            <small  *ngIf="noEsValido('apellidoUno')">{{ getMensaje('apellidoUno') }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText id="primerApellido" formControlName="apellidoDos"/>
+              <label htmlFor="primerApellido">Segundo Apellido</label>
+            </span>
+            <small  *ngIf="noEsValido('apellidoDos')">{{ getMensaje('apellidoDos') }}</small>
+          </div>
+
+           <div class="lg:col-5 md:col-12 py-4">
+            <span class="p-float-label">
+              <p-calendar id="fechaNacimiento" [readonlyInput]="true" [showIcon]="true" dateFormat="yy/mm/dd" formControlName="fe_nacimiento"></p-calendar>
+              <label for="fechaNacimiento">Fecha de nacimiento</label>
+            </span>
+            <small  *ngIf="noEsValido('fe_nacimiento')">{{ getMensaje('fe_nacimiento') }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <p-dropdown (ngModelChange)="updateLabelDocument()" [options]="tiposDocumentos" formControlName="tipo_documento" optionLabel="name" inputid="tipoDocumento" ></p-dropdown>
+              <label for="tipoDocumento">Tipo de Documento</label>
+            </span>
+            <small  *ngIf="noEsValido('tipo_documento')">{{ getMensaje('tipo_documento') }}</small>
+          </div>
+
+          <div class="lg:col-5 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText (ngModelChange)="existDni('documento')" id="identificacion" formControlName="documento" >
+              <label htmlFor="identificacion">{{ documentLabel }}</label>
+            </span>
+            <small  *ngIf="noEsValido('documento')">{{ getMensaje('documento') }}</small>
+          </div>
+        </div>
+
+      </p-card>
+
+      <p-card class="col-12 mt-3">
+
+        <p class="fs-6 text-uppercase">Datos de contacto</p>
+
+        <div class="grid">
+
+          <div class="col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText (ngModelChange)="existEmail('mail')" id="email" formControlName="mail"/>
+              <label htmlFor="email">Email</label>
+            </span>
+            <small  *ngIf="noEsValido('mail')">{{ getMensaje('mail') }}</small>
+          </div>
+
+          <div class="col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="telefono" (change)="existPhoneNumber('telefono')" formControlName="telefono" >
+              <label htmlFor="telefono">Teléfono</label>
+            </span>
+            <small  *ngIf="noEsValido('telefono')">{{ getMensaje('telefono') }}</small>
+          </div>
+        </div>
+
+      </p-card>
+
+      <p-card class="col-12 mt-3">
+        <p class="fs-6 text-uppercase">Dirección de contacto</p>
+        <div class="grid">
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="calle" formControlName="calle" />
+              <label for="calle">Calle</label>
+            </span>
+            <small  *ngIf="noEsValido('calle')">{{ getMensaje('calle') }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="numero" formControlName="numero" pKeyFilter="int" />
+              <label for="numero">Número</label>
+            </span>
+            <small  *ngIf="noEsValido('numero')">{{ getMensaje('numero') }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="piso" formControlName="piso" />
+              <label for="piso">Piso</label>
+            </span>
+            <small  *ngIf="noEsValido('piso')">{{ getMensaje('piso') }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="cp" formControlName="codigoPostal" pKeyFilter="int" />
+              <label for="cp">Código Postal</label>
+            </span>
+            <small  *ngIf="noEsValido('codigoPostal')">{{ getMensaje('codigoPostal') }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="localidad" formControlName="localidad" />
+              <label for="localidad">Localidad</label>
+            </span>
+            <small  *ngIf="noEsValido('localidad')">{{ getMensaje('localidad') }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="tipoCalle" formControlName="tipoCalle" />
+              <label for="tipoCalle">Tipo de calle</label>
+            </span>
+            <small  *ngIf="noEsValido('tipoCalle')">{{ getMensaje('tipoCalle') }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="puerta" formControlName="puerta" />
+              <label for="puerta">Puerta</label>
+            </span>
+            <small  *ngIf="noEsValido('puerta')">{{ getMensaje('puerta') }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="provincia" formControlName="provincia" />
+              <label for="provincia">Provincia</label>
+            </span>
+            <small  *ngIf="noEsValido('provincia')">{{ getMensaje('provincia') }}</small>
+          </div>
+
+      </div>
+
+      <div class="grid py-2">
+        <p-toast></p-toast>
+        <div class="lg:col-2 md:col-6">
+          <button type="submit" pButton pRipple label="Guardar" icon="pi pi-save" class="btn-orange"></button>
+        </div>
+        <div class="lg:col-2 md:col-6" >
+          <button  pButton pRipple label="Cancelar" icon="pi pi-times" class="btn-orange" (click)="clearForm()"></button>
+        </div>
+      </div>
+
+    </p-card>
+
+  </form>
+  </div>
+</div>
+
+

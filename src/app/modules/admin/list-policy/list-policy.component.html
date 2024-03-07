@@ -1,0 +1,86 @@
+<div class="container-fluid">
+
+  <div class="p-fluid grid">
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+    <p-card class="col-12">
+      <div class="lg:col-12">
+        <p class="fs-3 text-uppercase">Listado de <span class="text-orange">polizas</span> </p>
+      </div>
+      <p-table #dc [value]="policies" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }" [paginator]="true"
+        [rows]="10" [rowsPerPageOptions]="[5, 10, 25]" styleClass="p-datatable-striped  w-100">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="nuPoliza" style="width: 8%;">Nº<p-sortIcon field="nuPoliza"></p-sortIcon>
+            </th>
+            <th pSortableColumn="feInicio" style="width: 15%;">Fecha inicio<p-sortIcon field="feInicio"></p-sortIcon>
+            </th>
+            <th pSortableColumn="feVencimiento" style="width: 15%;">Fecha vencimiento<p-sortIcon field="feVencimiento"></p-sortIcon></th>
+            <th pSortableColumn="idSituacionPoliza.descripcion" style="width: 15%;">Estado<p-sortIcon field="idSituacionPoliza.descripcion"></p-sortIcon>
+            </th>
+            <th pSortableColumn="idModalidad.descripcion" style="width: 15%;">Modalidad<p-sortIcon field="idModalidad.descripcion"></p-sortIcon></th>
+            <th pSortableColumn="prima" style="width: 10%;">Prima<p-sortIcon field="prima"></p-sortIcon></th>
+            <th pSortableColumn="nuCuenta" style="width: 20%;">Nº Cuenta<p-sortIcon field="nuCuenta"></p-sortIcon></th>
+            <th style="width: 5%;"></th>
+            <th style="width: 5%;"></th>
+          </tr>
+          <tr>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'nuPoliza', 'contains')"
+                [value]="$any(dc.filters['nuPoliza'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'feInicio', 'contains')"
+                [value]="$any(dc.filters['feInicio'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'feVencimiento', 'contains')"
+                [value]="$any(dc.filters['feVencimiento'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'idSituacionPoliza.descripcion', 'contains')"
+                [value]="$any(dc.filters['idSituacionPoliza.descripcion'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'idModalidad.descripcion', 'contains')"
+                [value]="$any(dc.filters['idModalidad.descripcion'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'prima', 'contains')"
+                [value]="$any(dc.filters['prima'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'nuCuenta', 'contains')"
+                [value]="$any(dc.filters['nuCuenta'])?.value">
+            </th>
+            <th></th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-policy>
+          <tr>
+            <td style="text-align: center;">{{ policy.nuPoliza }}</td>
+            <td style="text-align: center;">{{ policy.feInicio }}</td>
+            <td style="text-align: center;">{{ policy.feVencimiento }}</td>
+            <td style="text-align: center;">{{ policy.idSituacionPoliza.descripcion }}</td>
+            <td style="text-align: center;">{{ policy.idModalidad.descripcion }}</td>
+            <td style="text-align: center;">{{ policy.prima }},00 €</td>
+            <td style="text-align: center;">{{ policy.nuCuenta }}</td>
+            <td style="text-align: right;" (click)="editPolicy(policy.idPoliza)" routerLink="/admin/modifyPolicy"><span class="pi pi-pencil" pTooltip="Editar datos de la poliza" tooltipPosition="left"
+                style="color: blue"></span>
+            </td>
+            <td style="text-align: right;" (click)="confirmDelete($event, policy)"><span class="pi pi-trash" pTooltip="Eliminar poliza"
+                tooltipPosition="left" style="color: red"></span></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+</div>

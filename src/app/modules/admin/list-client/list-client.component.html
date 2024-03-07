@@ -1,0 +1,77 @@
+<div class="container-fluid">
+
+  <div class="p-fluid grid">
+    <p-card class="col-12">
+      <p-toast></p-toast>
+      <p-confirmDialog></p-confirmDialog>
+      <div class="lg:col-12">
+        <p class="fs-3 text-uppercase">Listado de <span class="text-orange">clientes</span> </p>
+      </div>
+      <p-table #dc [value]="clients" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }" [paginator]="true"
+        [rows]="10" [rowsPerPageOptions]="[5, 10, 25]" styleClass="p-datatable-striped  w-100">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="documento" style="width: 15%;">Documento ID<p-sortIcon field="documento"></p-sortIcon></th>
+            <th pSortableColumn="nombre" style="width: 15%;">Nombre<p-sortIcon field="nombre"></p-sortIcon></th>
+            <th pSortableColumn="primerApellido" style="width: 15%;">1º Apellido<p-sortIcon field="primerApellido"></p-sortIcon></th>
+            <th pSortableColumn="segundoApellido" style="width: 15%;">2º Apellido<p-sortIcon field="segundoApellido"></p-sortIcon></th>
+            <th pSortableColumn="telefono" style="width: 20%;">Teléfono<p-sortIcon field="telefono"></p-sortIcon></th>
+            <th pSortableColumn="email" style="width: 20%;">Email<p-sortIcon field="email"></p-sortIcon></th>
+            <th style="width: 5%;"></th>
+            <th style="width: 5%;"></th>
+          </tr>
+          <tr>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'documento', 'contains')"
+                [value]="$any(dc.filters['documento'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'nombre', 'contains')"
+                [value]="$any(dc.filters['nombre'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'primerApellido', 'contains')"
+                [value]="$any(dc.filters['primerApellido'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'segundoApellido', 'contains')"
+                [value]="$any(dc.filters['segundoApellido'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'telefono', 'contains')"
+                [value]="$any(dc.filters['telefono'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-100" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'email', 'contains')"
+                [value]="$any(dc.filters['email'])?.value">
+            </th>
+            <th></th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-client>
+          <tr>
+            <td style="text-align: center;">{{ client.documento }}</td>
+            <td style="text-align: center;">{{ client.nombre }}</td>
+            <td style="text-align: center;">{{ client.primerApellido }}</td>
+            <td style="text-align: center;">{{ client.segundoApellido }}</td>
+            <td style="text-align: center;">{{ client.telefono }}</td>
+            <td style="text-align: center;">{{ client.mail }}</td>
+            <td style="text-align: right;" routerLink="/admin/modifyClient" (click)="editClient(client.idCliente)">
+              <span class="pi pi-pencil" pTooltip="Editar datos del cliente" tooltipPosition="left"
+                style="color: blue"></span>
+            </td>
+            <td style="text-align: right;" (click)="confirmDelete($event, client)"><span class="pi pi-trash" pTooltip="Eliminar cliente"
+                tooltipPosition="left" style="color: red"></span></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+</div>

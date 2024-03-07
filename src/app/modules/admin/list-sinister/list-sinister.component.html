@@ -1,0 +1,81 @@
+<div class="container-fluid">
+
+  <div class="p-fluid grid">
+    <p-toast></p-toast>
+    <p-confirmDialog></p-confirmDialog>
+    <p-card class="col-12">
+      <div class="lg:col-12">
+        <p class="fs-3 text-uppercase">Listado de <span class="text-orange">siniestros</span> </p>
+      </div>
+      <p-table #dc [value]="sinisters" [tableStyle]="{ 'min-width': '50rem', 'text-align': 'center' }"
+        [paginator]="true" [rows]="10" [rowsPerPageOptions]="[5, 10, 25]" styleClass="p-datatable-striped  w-100">
+        <ng-template pTemplate="header">
+          <tr>
+            <th pSortableColumn="refSiniestro" style="width: 10%;">Ref Siniestro<p-sortIcon field="refSiniestro"></p-sortIcon></th>
+            <th pSortableColumn="peritado" style="width: 10%;">Peritado <p-sortIcon field="peritado"></p-sortIcon></th>
+            <th pSortableColumn="feSiniestro" style="width: 10%;">Fecha daño<p-sortIcon field="feSiniestro"></p-sortIcon></th>
+            <th pSortableColumn="feInicioReparacion" style="width: 10%;">Fecha inicio rep<p-sortIcon field="feInicioReparacion"></p-sortIcon></th>
+            <th pSortableColumn="feFinReparacion" style="width: 10%;">Fecha fin rep<p-sortIcon field="feFinReparacion"></p-sortIcon></th>
+            <th pSortableColumn="importeSiniestro" style="width: 10%;">Importe<p-sortIcon field="importeSiniestro"></p-sortIcon></th>
+            <th pSortableColumn="idEstado.descripcion" style="width: 10%;">Estado<p-sortIcon field="idEstado.descripcion"></p-sortIcon></th>
+            <th style="width: 3%;"></th>
+            <th style="width: 3%;"></th>
+          </tr>
+          <tr>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'refSiniestro', 'contains')"
+                [value]="$any(dc.filters['refSiniestro'])?.value">
+            <th>
+              <p-columnFilter type="boolean" field="peritado" [showClearButton]="false"></p-columnFilter>
+
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'feSiniestro', 'contains')"
+                [value]="$any(dc.filters['feSiniestro'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'feInicioReparacion', 'contains')"
+                [value]="$any(dc.filters['feInicioReparacion'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'feFinReparacion', 'contains')"
+                [value]="$any(dc.filters['feFinReparacion'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'importeSiniestro', 'contains')"
+                [value]="$any(dc.filters['importeSiniestro'])?.value">
+            </th>
+            <th>
+              <input class="p-inputtext w-75" pInputText type="text"
+                (input)="dc.filter($any($event.target)?.value, 'idEstado.descripcion', 'contains')"
+                [value]="$any(dc.filters['idEstado.descripcion'])?.value">
+            </th>
+            <th></th>
+            <th></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-sinister>
+          <tr>
+            <td style="text-align: center;">{{ sinister.refSiniestro }}</td>
+            <td style="text-align: center;"><i class="fs-4 bi" [ngClass]="{ 'bi-check2-circle text-success': sinister.peritado, 'bi-x-circle text-danger': !sinister.peritado }"></i></td>
+            <td style="text-align: center;">{{ sinister.feSiniestro }}</td>
+            <td style="text-align: center;">{{ sinister.feInicioReparacion }}</td>
+            <td style="text-align: center;">{{ sinister.feFinReparacion }}</td>
+            <td style="text-align: center;"><div *ngIf="sinister.importeSiniestro">{{ sinister.importeSiniestro }} €</div></td>
+            <td style="text-align: center;">{{ sinister.idEstado.descripcion }}</td>
+            <td style="text-align: right;" (click)="editPolicy(sinister.idSiniestro)" routerLink="/admin/modifySinister"><span class="pi pi-pencil"
+                pTooltip="Editar datos del siniestro" tooltipPosition="left" style="color: blue"></span>
+            </td>
+            <td style="text-align: right;" (click)="confirmDelete($event, sinister)"><span class="pi pi-trash" pTooltip="Eliminar siniestro"
+                tooltipPosition="left" style="color: red"></span></td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+  </div>
+</div>

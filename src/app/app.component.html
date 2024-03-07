@@ -1,0 +1,14 @@
+<app-header></app-header>
+
+<div *ngIf="show">
+  <app-sidbar></app-sidbar>
+</div>
+
+<div [ngClass]="{'margin-l': show}">
+  <div [ngClass]="[ inAdmin ? 'layout-main-container':'', inClient ? 'layout-main-container':'']">
+    <router-outlet></router-outlet>
+  </div>
+</div>
+
+<app-footer></app-footer>
+

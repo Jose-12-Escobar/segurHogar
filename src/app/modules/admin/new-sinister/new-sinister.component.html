@@ -1,0 +1,134 @@
+<div class="container-fluid">
+<p-toast></p-toast>
+  <div class="p-fluid grid">
+    <form class="col-12" [formGroup]="formGroupSearch" (submit)="searchRisk()">
+
+      <p-card>
+        <p-toast></p-toast>
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-3 text-uppercase">Nuevo<span class="text-orange"> siniestro</span> </p>
+            <p class="fs-6 text-uppercase">Buscar polizas</p>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-2">
+            <span class="p-float-label">
+              <input pInputText id="nombre" formControlName="documentoId" />
+              <label htmlFor="nombre">DNI o NIE del cliente</label>
+            </span>
+            <small *ngIf="noEsValido('documentoId',formGroupSearch)">{{ getMensaje('documentoId',formGroupSearch)
+              }}</small>
+          </div>
+          <div class="lg:col-3 md:col-12 py-2">
+            <span class="p-float-label">
+              <input pInputText id="numPoliza" formControlName="nuPoliza" />
+              <label htmlFor="numPoliza">Nº Poliza</label>
+            </span>
+            <small *ngIf="noEsValido('nuPoliza',formGroupSearch)">{{ getMensaje('nuPoliza',formGroupSearch)
+              }}</small>
+          </div>
+
+          <div class="md:col-4 lg:col-2 ms-3">
+            <button type="submit" pButton pRipple label="Buscar" icon="pi pi-search" class="btn-orange"></button>
+          </div>
+        </div>
+
+      </p-card>
+
+    </form>
+
+    <p-card class="col-12">
+      <div *ngIf="!showTable" class="messagg">
+        <p>Indique el dni de un cliente o un número de poliza para realizar la <br> busqueda de las/la polaizas
+          y su riesgo correspondiente</p>
+      </div>
+      <p-table *ngIf="showTable" [value]="policies" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width:7%; text-align: center;">Nº poliza</th>
+            <th style="width:7%; text-align: center;">Id Riesgo</th>
+            <th style="width:25%; text-align: center;">Dirección</th>
+            <th style="width:7%; text-align: center;">CodPostal</th>
+            <th style="width:7%; text-align: center;">Localidad</th>
+            <th style="width:7%; text-align: center;">Provincia</th>
+            <th style="width:10%; text-align: center;">Añadir siniestro</th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-policy>
+          <tr>
+            <td style="text-align: center;">{{ policy.nuPoliza }}</td>
+            <td style="text-align: center;">{{ policy.riesgos[0].idRiesgo }}</td>
+            <td style="text-align: center;">{{ policy.riesgos[0].tipoCalle }} {{ policy.riesgos[0].noCalle }} {{ policy.riesgos[0].numero }} {{ policy.riesgos[0].piso }}{{ policy.riesgos[0].puerta }}</td>
+            <td style="text-align: center;">{{ policy.riesgos[0].coPostal }}</td>
+            <td style="text-align: center;">{{ policy.riesgos[0].localidad }}</td>
+            <td style="text-align: center;">{{ policy.riesgos[0].provincia }}</td>
+            <td style="text-align: center;" (click)="sevaIdRisk(policy.riesgos[0].idRiesgo)"><span class="bi bi-plus-circle-fill fs-2" pTooltip="Añadir siniestro"
+                tooltipPosition="left" style="color: blue"></span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-card>
+
+    <p-card *ngIf="idRisk" class="col-12 mt-3">
+      <form class="col-12" [formGroup]="formGroupNewSinister" (ngSubmit)="guardarDatos()">
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-6 text-uppercase">Datos siniestro</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="lg:col-2 md:col-6 py-4">
+            <span class="p-float-label">
+              <input pInputText id="refSiniestro" pKeyFilter="int" formControlName="ref_sinister" (ngModelChange)="existRefSinister('ref_sinister')" />
+              <label for="refSiniestro">Referencia siniestro</label>
+            </span>
+            <small *ngIf="noEsValido('ref_sinister',formGroupNewSinister)">{{
+              getMensaje('ref_sinister',formGroupNewSinister) }}</small>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="lg:col-4 md:col-6 py-4">
+            <span class="p-float-label">
+              <p-calendar id="fe_dano" [readonlyInput]="true" [showIcon]="true" dateFormat="yy/mm/dd" formControlName="fe_dano"></p-calendar>
+              <label for="fe_dano">Fecha del daño</label>
+            </span>
+            <small *ngIf="noEsValido('fe_dano',formGroupNewSinister)">{{ getMensaje('fe_dano',formGroupNewSinister)
+              }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-6 py-4">
+            <span class="p-float-label">
+              <p-dropdown [options]="state" optionLabel="descripcion" inputid="estado" formControlName="state"></p-dropdown>
+              <label for="estado">Estado</label>
+            </span>
+            <small *ngIf="noEsValido('state',formGroupNewSinister)">{{ getMensaje('state',formGroupNewSinister)
+              }}</small>
+          </div>
+
+          <div class="lg:col-4 md:col-6 py-4">
+            <span class="p-float-label">
+              <textarea formControlName="descripcion" id="descripcion" rows="1" cols="30" pInputTextarea></textarea>
+              <label for="descripcion">Descripción</label>
+            </span>
+            <small *ngIf="noEsValido('descripcion',formGroupNewSinister)">{{
+              getMensaje('descripcion',formGroupNewSinister) }}</small>
+          </div>
+        </div>
+
+        <div class="grid py-2">
+          <div class="lg:col-2 md:col-6">
+            <button type="submit" pButton pRipple label="Guardar" icon="pi pi-save" class="btn-orange"></button>
+          </div>
+          <div class="lg:col-2 md:col-6">
+            <button pButton pRipple (click)="clearForm()" label="Cancelar" icon="pi pi-times"
+              class="btn-orange"></button>
+          </div>
+        </div>
+      </form>
+    </p-card>
+  </div>
+</div>
+

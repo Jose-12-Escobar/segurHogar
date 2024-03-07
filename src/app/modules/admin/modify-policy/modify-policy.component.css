@@ -1,0 +1,28 @@
+:host ::ng-deep .p-element {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.messagg {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+.cuadroPoliza {
+  background-color:  blue;
+  color: white;
+  border-radius: 1rem;
+  height: 1.6rem;
+  width: 6rem;
+  font-family: fantasy;
+  font-size: 1.2rem;
+}
+
+:host ::ng-deep .p-element, .p-ripple, .p-datepicker-trigger, .p-button-icon-only {
+  opacity: initial;
+}
+:host ::ng-deep .p-inputtext, .p-component, .ng-star-inserted {
+  opacity: initial;
+}

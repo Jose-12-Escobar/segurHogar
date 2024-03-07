@@ -1,0 +1,156 @@
+<div class="container-fluid">
+  <div class="p-fluid grid">
+
+    <form class="col-12" [formGroup]="formGroupSearch" (submit)="searchPolicy()" >
+      <p-card>
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-3 text-uppercase">Modificar datos de <span class="text-orange">poliza</span> </p>
+            <p class="fs-6 text-uppercase">Buscar poliza</p>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-2">
+            <span class="p-float-label">
+              <input pInputText formControlName="documentoId" id="documentoId" />
+              <label htmlFor="documentoId">DNI o NIE del cliente</label>
+            </span>
+            <small *ngIf="isValid('documentoId', formGroupSearch)">{{ getMensaje('documentoId', formGroupSearch)}}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-2">
+            <span class="p-float-label">
+              <input formControlName="nuPoliza" pInputText id="numPoliza" />
+              <label htmlFor="numPoliza">Nº Poliza</label>
+            </span>
+            <small *ngIf="isValid('nuPoliza',formGroupSearch)">{{ getMensaje('nuPoliza',formGroupSearch) }}</small>
+          </div>
+
+
+          <div class="md:col-4 lg:col-2 ms-3">
+            <button type="submit" pButton pRipple label="Buscar" icon="pi pi-search" class="btn-orange"></button>
+          </div>
+        </div>
+      </p-card>
+      <p-toast></p-toast>
+    </form>
+
+    <p-card class="col-12">
+      <div *ngIf="!showTable" class="messagg">
+        <p>Indique el dni de un cliente o un número de poliza para realizar la <br> busqueda  de las/la polaizas correspondientes</p>
+      </div>
+      <p-table *ngIf="showTable" [value]="policies" [tableStyle]="{ 'min-width': '50rem' }">
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width:10%">Nº</th>
+            <th style="width:15%">Fecha inicio</th>
+            <th style="width:15%">Fecha fin</th>
+            <th style="width:15%">Estado</th>
+            <th style="width:15%">Modalidad</th>
+            <th style="width:10%">Prima</th>
+            <th style="width:20%">Nº Cuenta</th>
+            <th style="width:5%"></th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-policy>
+            <tr>
+                <td>{{ policy.nuPoliza }}</td>
+                <td>{{ policy.feInicio }}</td>
+                <td>{{ policy.feVencimiento }}</td>
+                <td>{{ policy.idSituacionPoliza.descripcion }}</td>
+                <td>{{ policy.idModalidad.descripcion }}</td>
+                <td>{{ policy.prima }},00 €</td>
+                <td>{{ policy.nuCuenta }}</td>
+                <td (click)="showPolicyInformation(policy)" ><span class="pi pi-pencil" pTooltip="Editar datos de la poliza" tooltipPosition="left"
+                  style="color: blue"></span>
+              </td>
+            </tr>
+        </ng-template>
+    </p-table>
+    </p-card>
+
+    <p-card class="col-12 mt-3">
+      <form [formGroup]="formGroupModifyPolicy" (submit)="guardarDatos()" >
+
+        <div class="grid">
+          <div class="lg:col-2 md:col-5">
+            <p class="fs-6 text-uppercase">Datos de la poliza</p>
+          </div>
+          <div class="lg:col-1 md:col-2 text-center">
+            <p *ngIf="numPolicy" class=" cuadroPoliza">{{ numPolicy }}</p>
+          </div>
+        </div>
+
+      <div class="grid mt-2">
+        <div class="lg:col-4 md:col-12 py-4">
+          <span class="p-float-label">
+            <p-calendar formControlName="fe_inicioPoliza" (ngModelChange)="setDateFechaFin()" id="fechaInicio" [readonlyInput]="true" [showIcon]="true"
+              dateFormat="yy/mm/dd"></p-calendar>
+            <label for="fechaInicio">Fecha de inicio</label>
+          </span>
+          <small *ngIf="isValid('fe_inicioPoliza',formGroupModifyPolicy)">{{ getMensaje('fe_inicioPoliza',formGroupModifyPolicy) }}</small>
+        </div>
+
+        <div class="lg:col-4 md:col-12 py-4">
+          <span class="p-float-label">
+            <p-calendar formControlName="fe_finPoliza" id="fechaVencimiento" [readonlyInput]="true" [showIcon]="true"
+              dateFormat="yy/mm/dd"></p-calendar>
+            <label for="fechaVencimiento">Fecha de vencimiento</label>
+          </span>
+          <small *ngIf="isValid('fe_finPoliza',formGroupModifyPolicy)">{{ getMensaje('fe_finPoliza',formGroupModifyPolicy) }}</small>
+        </div>
+      </div>
+
+      <div class="grid">
+        <div class="lg:col-2 md:col-6 py-4">
+          <span class="p-float-label">
+            <p-dropdown formControlName="estado" [options]="state" optionLabel="state" inputid="estado"></p-dropdown>
+            <label for="estado">Estado</label>
+          </span>
+          <small *ngIf="isValid('estado',formGroupModifyPolicy)">{{ getMensaje('estado',formGroupModifyPolicy) }}</small>
+        </div>
+
+        <div class="lg:col-2 md:col-6 py-4">
+          <span class="p-float-label">
+            <p-dropdown formControlName="modalidad" [options]="modalidad" optionLabel="tipo"
+              inputid="modalidad"></p-dropdown>
+            <label for="modalidad">Modalidad</label>
+          </span>
+          <small *ngIf="isValid('modalidad',formGroupModifyPolicy)">{{ getMensaje('modalidad',formGroupModifyPolicy) }}</small>
+        </div>
+
+
+        <div class="lg:col-2 md:col-6 py-4">
+          <span class="p-float-label">
+            <p-inputNumber mode="currency" formControlName="prima" inputId="prima" currency="EUR" locale="de-DE">
+            </p-inputNumber>
+            <label for="prima">Prima</label>
+          </span>
+          <small *ngIf="isValid('prima',formGroupModifyPolicy)">{{ getMensaje('prima',formGroupModifyPolicy) }}</small>
+        </div>
+      </div>
+
+      <div class="grid">
+        <p class="lg:col-12 fs-6 text-uppercase">Datos de cuenta bancaria</p>
+        <div class="lg:col-5 md:col-12 py-4">
+          <span class="p-float-label">
+            <input formControlName="numeroCuenta" pInputText id="cuentaBancaria" />
+            <label htmlFor="cuentaBancaria">Número de cuenta</label>
+          </span>
+          <small *ngIf="isValid('numeroCuenta',formGroupModifyPolicy)">{{ getMensaje('numeroCuenta',formGroupModifyPolicy) }}</small>
+        </div>
+      </div>
+
+
+      <div class="grid py-2">
+        <div class="lg:col-2 md:col-6">
+          <button type="submit" pButton pRipple label="Guardar" icon="pi pi-save" class="btn-orange"></button>
+        </div>
+        <div class="lg:col-2 md:col-6">
+          <button pButton pRipple label="Cancelar" icon="pi pi-times" class="btn-orange" (click)="clearForm()"></button>
+        </div>
+      </div>
+    </form>
+    </p-card>
+
+  </div>
+</div>

@@ -1,0 +1,15 @@
+
+:host ::ng-deep .p-inputtext, .p-component, .ng-star-inserted {
+  opacity: initial;
+}
+
+:host ::ng-deep .p-element, .p-ripple, .p-datepicker-trigger, .p-button-icon-only {
+  opacity: initial;
+}
+
+.messagg {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}

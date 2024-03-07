@@ -1,0 +1,124 @@
+<div class="container-fluid">
+  <div class="p-fluid grid">
+
+    <form class="col-12" [formGroup]="formGroupSearch" (submit)="searchRiskByNumPoliza()">
+      <p-card>
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-3 text-uppercase">Modificar datos del <span class="text-orange">riesgo</span> </p>
+            <p class="fs-6 text-uppercase">Buscar poliza</p>
+          </div>
+
+          <div class="lg:col-4 md:col-12 py-2">
+            <span class="p-float-label">
+              <input pInputText formControlName="numPoliza" id="numPoliza" />
+              <label htmlFor="numPoliza">Número de poliza</label>
+            </span>
+            <small *ngIf="isValid('numPoliza', formGroupSearch)">{{ getMensaje('numPoliza', formGroupSearch)
+              }}</small>
+          </div>
+
+          <div class="md:col-4 lg:col-2 ms-3">
+            <button type="submit" pButton pRipple label="Buscar" icon="pi pi-search" class="btn-orange"></button>
+          </div>
+        </div>
+
+      </p-card>
+    </form>
+
+
+    <p-card class="col-12">
+      <form [formGroup]="formGroupModifyRisk" (submit)="guardarDatos()">
+
+        <div class="grid">
+          <div class="lg:col-12">
+            <p class="fs-6 text-uppercase">Datos del riesgo</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="tipoCalle" id="tipoCalle" />
+              <label htmlFor="tipoCalle">Tipo de calle</label>
+            </span>
+            <small *ngIf="isValid('tipoCalle',formGroupModifyRisk)">{{ getMensaje('tipoCalle',formGroupModifyRisk)
+              }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="noCalle" id="noCalle" />
+              <label htmlFor="noCalle">Nombre</label>
+            </span>
+            <small *ngIf="isValid('noCalle',formGroupModifyRisk)">{{ getMensaje('noCalle',formGroupModifyRisk)
+              }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="numero" id="numero" />
+              <label htmlFor="numero">Número</label>
+            </span>
+            <small *ngIf="isValid('numero',formGroupModifyRisk)">{{ getMensaje('numero',formGroupModifyRisk) }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="piso" id="piso" />
+              <label htmlFor="piso">Piso</label>
+            </span>
+            <small *ngIf="isValid('piso',formGroupModifyRisk)">{{ getMensaje('piso',formGroupModifyRisk) }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="puerta" id="puerta" />
+              <label htmlFor="puerta">Puerta</label>
+            </span>
+            <small *ngIf="isValid('puerta',formGroupModifyRisk)">{{ getMensaje('puerta',formGroupModifyRisk) }}</small>
+          </div>
+
+          <div class="lg:col-2 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="coPostal" id="coPostal" />
+              <label htmlFor="coPostal">Código postal</label>
+            </span>
+            <small *ngIf="isValid('coPostal',formGroupModifyRisk)">{{ getMensaje('coPostal',formGroupModifyRisk)
+              }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="localidad" id="localidad" />
+              <label htmlFor="localidad">Localidad</label>
+            </span>
+            <small *ngIf="isValid('localidad',formGroupModifyRisk)">{{ getMensaje('localidad',formGroupModifyRisk)
+              }}</small>
+          </div>
+
+          <div class="lg:col-3 md:col-12 py-4">
+            <span class="p-float-label">
+              <input pInputText formControlName="provincia" id="provincia" />
+              <label htmlFor="provincia">Provincia</label>
+            </span>
+            <small *ngIf="isValid('provincia',formGroupModifyRisk)">{{ getMensaje('provincia',formGroupModifyRisk)
+              }}</small>
+          </div>
+        </div>
+
+        <div class="grid py-2">
+          <p-toast></p-toast>
+          <div class="lg:col-2 md:col-6">
+            <button type="submit" pButton pRipple label="Guardar" icon="pi pi-save" class="btn-orange"></button>
+          </div>
+          <div class="lg:col-2 md:col-6">
+            <button pButton pRipple label="Cancelar" icon="pi pi-times" class="btn-orange" (click)="clearForm()"></button>
+          </div>
+        </div>
+
+      </form>
+    </p-card>
+
+  </div>
+</div>

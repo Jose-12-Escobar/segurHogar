@@ -1,0 +1,24 @@
+.messagg {
+  text-align: center;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+:host ::ng-deep .p-disabled, .p-component:disabled {
+  opacity: initial;
+}
+
+:host ::ng-deep .p-inputtext, .p-component, .p-element, .p-inputmask {
+  opacity: initial;
+}
+
+.cuadroPoliza {
+  background-color:  blue;
+  color: white;
+  border-radius: 1rem;
+  height: 1.6rem;
+  width: 6rem;
+  font-family: fantasy;
+  font-size: 1.2rem;
+}
